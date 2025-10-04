@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <!-- include defination -->
+  <xmacro_include uri="model://scorpio/scorpio.def.xmacro" />
+  <xmacro_include uri="model://d435i/model.sdf.xmacro" />
+  <xmacro_include uri="model://mid360/model.sdf.xmacro" />
+  <xmacro_include uri="model://rplidar_a2/model.sdf.xmacro" />
+
+  <!-- scorpio model -->
+  <model name='scorpio'>
+    <self_collide>false</self_collide>
+
+    <pose>0 0 0.2 0 0 0</pose>
+    <xmacro_block name="scorpio" />
+    <xmacro_block name="d435i" prefix="front_" parent="base_link" pose="0.15 0 0.23 0 0 0" />
+    <xmacro_block name="rplidar_a2" prefix="" parent="base_link" pose="-0.04 0.0 0.24 0 0 0"
+      update_rate="20" samples="1875" visualize="false" />
+
+    <!-- diff drive plugin -->
+    <plugin filename="ignition-gazebo-diff-drive-system" name="ignition::gazebo::systems::DiffDrive">
+      <left_joint>wheel_left_joint</left_joint>
+      <right_joint>wheel_right_joint</right_joint>
+      <wheel_separation>0.5605</wheel_separation>
+      <wheel_radius>0.195</wheel_radius>
+      <odom_publish_frequency>20</odom_publish_frequency>
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_link</child_frame_id>
+    </plugin>
+
+    <!-- pose publisher plugin -->
+    <plugin filename="ignition-gazebo-pose-publisher-system"
+      name="ignition::gazebo::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <publish_collision_pose>false</publish_collision_pose>
+      <publish_visual_pose>false</publish_visual_pose>
+      <publish_sensor_pose>false</publish_sensor_pose>
+      <publish_nested_model_pose>true</publish_nested_model_pose>
+      <update_frequency>20</update_frequency>
+    </plugin>
+
+    <!-- joint state publisher plugin -->
+    <plugin filename="ignition-gazebo-joint-state-publisher-system"
+      name="ignition::gazebo::systems::JointStatePublisher">
+    </plugin>
+  </model>
+</sdf>

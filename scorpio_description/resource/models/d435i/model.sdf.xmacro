@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <!-- macro definition: d435i -->
+  <xmacro_define_block name="d435i" params="prefix parent pose">
+
+    <!-- camera body, with origin at bottom screw mount -->
+    <joint name="${prefix}d435i_bottom_joint" type="fixed">
+      <pose relative_to="${parent}">${pose}</pose>
+      <parent>${parent}</parent>
+      <child>${prefix}bottom_screw_frame</child>
+    </joint>
+    <link name="${prefix}bottom_screw_frame">
+      <pose relative_to="${prefix}d435i_bottom_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <joint name="${prefix}d435i_joint" type="fixed">
+      <pose relative_to="${prefix}bottom_screw_frame">0 0.0175 0.0125 0 0 0</pose>
+      <parent>${prefix}bottom_screw_frame</parent>
+      <child>${prefix}d435i</child>
+    </joint>
+
+    <link name="${prefix}d435i">
+      <pose relative_to="${prefix}d435i_joint">0 0 0 0 0 0</pose>
+      <visual name="visual">
+        <pose>-0.0211 -0.0175 0 0 0 ${pi/2}</pose>
+        <xmacro_block name="geometry_mesh" uri="model://d435i/meshes/d435.dae" />
+      </visual>
+
+      <collision name="collision">
+        <pose>-0.008 -0.0175 0 0 0 0</pose>
+        <xmacro_block name="geometry_box" x="0.02505" y="0.09" z="0.025" />
+      </collision>
+
+      <inertial>
+        <pose>-0.008 -0.0175 0 0 0 0</pose>
+        <xmacro_block name="inertia_box" m="0.072" x="0.02505" y="0.09" z="0.025" />
+      </inertial>
+
+      <!-- Color camera sensor -->
+      <sensor name="${prefix}color" type="camera">
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <camera>
+          <optical_frame_id>${prefix}color_optical_frame</optical_frame_id>
+          <horizontal_fov>${69.4/180*pi}</horizontal_fov>
+          <image>
+            <width>1920</width>
+            <height>1080</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+      </sensor>
+
+      <!-- Depth camera sensor -->
+      <sensor name="${prefix}depth" type="depth_camera">
+        <always_on>1</always_on>
+        <update_rate>10</update_rate>
+        <camera>
+          <optical_frame_id>${prefix}depth_optical_frame</optical_frame_id>
+          <horizontal_fov>${85.2/180*pi}</horizontal_fov>
+          <image>
+            <width>1280</width>
+            <height>720</height>
+            <format>R_FLOAT32</format>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>10.0</far>
+          </clip>
+        </camera>
+      </sensor>
+
+      <!-- IMU sensor -->
+      <sensor name="${prefix}imu" type="imu">
+        <ignition_frame_id>${prefix}imu_frame</ignition_frame_id>
+        <always_on>1</always_on>
+        <update_rate>200</update_rate>
+      </sensor>
+    </link>
+
+    <!-- camera depth joints and links -->
+    <joint name="${prefix}depth_joint" type="fixed">
+      <pose relative_to="${prefix}d435i">0 0 0 0 0 0</pose>
+      <parent>${prefix}d435i</parent>
+      <child>${prefix}depth_frame</child>
+    </joint>
+    <link name="${prefix}depth_frame">
+      <pose relative_to="${prefix}depth_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <joint name="${prefix}depth_optical_joint" type="fixed">
+      <pose relative_to="${prefix}depth_frame">0 0 0 ${-pi/2} 0 ${-pi/2}</pose>
+      <parent>${prefix}depth_frame</parent>
+      <child>${prefix}depth_optical_frame</child>
+    </joint>
+    <link name="${prefix}depth_optical_frame">
+      <pose relative_to="${prefix}depth_optical_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <!-- camera left IR joints and links (infra1) -->
+    <joint name="${prefix}infra1_joint" type="fixed">
+      <pose relative_to="${prefix}d435i">0 0 0 0 0 0</pose>
+      <parent>${prefix}d435i</parent>
+      <child>${prefix}infra1_frame</child>
+    </joint>
+    <link name="${prefix}infra1_frame">
+      <pose relative_to="${prefix}infra1_joint">0 0 0 0 0 0</pose>
+
+      <!-- Infra1 camera sensor -->
+      <sensor name="${prefix}infra1" type="camera">
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <camera>
+          <optical_frame_id>${prefix}infra1_optical_frame</optical_frame_id>
+          <horizontal_fov>1.57</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+      </sensor>
+    </link>
+
+    <joint name="${prefix}infra1_optical_joint" type="fixed">
+      <pose relative_to="${prefix}infra1_frame">0 0 0 ${-pi/2} 0 ${-pi/2}</pose>
+      <parent>${prefix}infra1_frame</parent>
+      <child>${prefix}infra1_optical_frame</child>
+    </joint>
+    <link name="${prefix}infra1_optical_frame">
+      <pose relative_to="${prefix}infra1_optical_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <!-- camera right IR joints and links (infra2) -->
+    <joint name="${prefix}infra2_joint" type="fixed">
+      <pose relative_to="${prefix}d435i">0 -0.050 0 0 0 0</pose>
+      <parent>${prefix}d435i</parent>
+      <child>${prefix}infra2_frame</child>
+    </joint>
+    <link name="${prefix}infra2_frame">
+      <pose relative_to="${prefix}infra2_joint">0 0 0 0 0 0</pose>
+
+      <!-- Infra2 camera sensor -->
+      <sensor name="${prefix}infra2" type="camera">
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <camera>
+          <optical_frame_id>${prefix}infra2_optical_frame</optical_frame_id>
+          <horizontal_fov>1.57</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+      </sensor>
+    </link>
+
+    <joint name="${prefix}infra2_optical_joint" type="fixed">
+      <pose relative_to="${prefix}infra2_frame">0 0 0 ${-pi/2} 0 ${-pi/2}</pose>
+      <parent>${prefix}infra2_frame</parent>
+      <child>${prefix}infra2_optical_frame</child>
+    </joint>
+    <link name="${prefix}infra2_optical_frame">
+      <pose relative_to="${prefix}infra2_optical_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <!-- camera color joints and links -->
+    <joint name="${prefix}color_joint" type="fixed">
+      <pose relative_to="${prefix}d435i">0 0.015 0 0 0 0</pose>
+      <parent>${prefix}d435i</parent>
+      <child>${prefix}color_frame</child>
+    </joint>
+    <link name="${prefix}color_frame">
+      <pose relative_to="${prefix}color_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <joint name="${prefix}color_optical_joint" type="fixed">
+      <pose relative_to="${prefix}color_frame">0 0 0 ${-pi/2} 0 ${-pi/2}</pose>
+      <parent>${prefix}color_frame</parent>
+      <child>${prefix}color_optical_frame</child>
+    </joint>
+    <link name="${prefix}color_optical_frame">
+      <pose relative_to="${prefix}color_optical_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <!-- camera imu joints and links -->
+    <joint name="${prefix}imu_joint" type="fixed">
+      <pose relative_to="${prefix}d435i">-0.01174 -0.00552 0.0051 0 0 0</pose>
+      <parent>${prefix}d435i</parent>
+      <child>${prefix}imu_frame</child>
+    </joint>
+    <link name="${prefix}imu_frame">
+      <pose relative_to="${prefix}imu_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <!-- IMU optical frame for accelerometer -->
+    <joint name="${prefix}accel_joint" type="fixed">
+      <pose relative_to="${prefix}imu_frame">0 0 0 0 0 0</pose>
+      <parent>${prefix}imu_frame</parent>
+      <child>${prefix}accel_frame</child>
+    </joint>
+    <link name="${prefix}accel_frame">
+      <pose relative_to="${prefix}accel_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <joint name="${prefix}accel_optical_joint" type="fixed">
+      <pose relative_to="${prefix}accel_frame">0 0 0 ${-pi/2} 0 ${-pi/2}</pose>
+      <parent>${prefix}accel_frame</parent>
+      <child>${prefix}accel_optical_frame</child>
+    </joint>
+    <link name="${prefix}accel_optical_frame">
+      <pose relative_to="${prefix}accel_optical_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <!-- IMU optical frame for gyroscope -->
+    <joint name="${prefix}gyro_joint" type="fixed">
+      <pose relative_to="${prefix}imu_frame">0 0 0 0 0 0</pose>
+      <parent>${prefix}imu_frame</parent>
+      <child>${prefix}gyro_frame</child>
+    </joint>
+    <link name="${prefix}gyro_frame">
+      <pose relative_to="${prefix}gyro_joint">0 0 0 0 0 0</pose>
+    </link>
+
+    <joint name="${prefix}gyro_optical_joint" type="fixed">
+      <pose relative_to="${prefix}gyro_frame">0 0 0 ${-pi/2} 0 ${-pi/2}</pose>
+      <parent>${prefix}gyro_frame</parent>
+      <child>${prefix}gyro_optical_frame</child>
+    </joint>
+    <link name="${prefix}gyro_optical_frame">
+      <pose relative_to="${prefix}gyro_optical_joint">0 0 0 0 0 0</pose>
+    </link>
+
+  </xmacro_define_block>
+
+  <model name='simple_d435i'>
+    <pose>0 0 0.2 0 0 0</pose>
+    <link name="base_link">
+      <inertial>
+        <xmacro_block name="inertia_box" m="0.4" x="0.4" y="0.4" z="0.4" />
+      </inertial>
+      <visual name="visual">
+        <xmacro_block name="geometry_box" x="0.4" y="0.4" z="0.4" />
+      </visual>
+      <collision name="collision">
+        <xmacro_block name="geometry_box" x="0.4" y="0.4" z="0.4" />
+      </collision>
+    </link>
+    <xmacro_block name="d435i" prefix="simple_" parent="base_link" pose="0 0 0.2 0 0 0" />
+  </model>
+</sdf>

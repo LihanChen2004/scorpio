@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <xmacro_include uri="model://scorpio/wheels.def.xmacro" />
+
+  <xmacro_define_block name="scorpio">
+    <link name="base_footprint" />
+    <joint name="base_to_chassis" type="fixed">
+      <pose>0 0 0.076 0 0 0</pose>
+      <parent>base_footprint</parent>
+      <child>base_link</child>
+    </joint>
+
+    <link name="base_link">
+      <inertial>
+        <pose>0.015 0 0.145 0 0 0</pose>
+        <xmacro_block name="inertia_box" m="0.54755" x="0.467" y="0.203" z="0.19" />
+      </inertial>
+
+      <visual name="base_visual">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>0.001 0.001 0.001</scale>
+            <uri>model://scorpio/meshes/scorpio.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.5 0.5 0.5</ambient>
+          <diffuse>0.7 0.7 0.7</diffuse>
+          <specular>0.9 0.9 0.9</specular>
+					<pbr>
+						<metal>
+							<albedo_map>model://scorpio/meshes/images/base.png</albedo_map>
+						</metal>
+					</pbr>
+        </material>
+      </visual>
+
+      <collision name="base_collision">
+        <pose>0.015 0 0.145 0 0 0</pose>
+        <xmacro_block name="geometry_box" x="0.467" y="0.203" z="0.19" />
+      </collision>
+    </link>
+
+    <!-- 左后轮 -->
+    <xmacro_block name="chassis_wheel_l" prefix="left_back" parent="base_link"
+      pose="-0.1575 0.0928 0.0525 0 0 0" />
+    <!-- 右后轮 -->
+    <xmacro_block name="chassis_wheel_r" prefix="right_back" parent="base_link"
+      pose="-0.1575 -0.0928 0.0525 0 0 0" />
+    <!-- 左前轮 -->
+    <xmacro_block name="chassis_wheel_l" prefix="left_front" parent="base_link"
+      pose="0.1575 0.0928 0.0525 0 0 0" />
+    <!-- 右前轮 -->
+    <xmacro_block name="chassis_wheel_r" prefix="right_front" parent="base_link"
+      pose="0.1575 -0.0928 0.0525 0 0 0" />
+
+  </xmacro_define_block>
+</sdf>
