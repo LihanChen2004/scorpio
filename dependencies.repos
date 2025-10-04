@@ -1,0 +1,5 @@
+repositories:
+  dependencies/sdformat_tools:
+    type: git
+    url: https://github.com/gezp/sdformat_tools.git
+    version: galactic
