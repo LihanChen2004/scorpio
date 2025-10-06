@@ -11,6 +11,9 @@
     </joint>
     <link name="${prefix}bottom_screw_frame">
       <pose relative_to="${prefix}d435i_bottom_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <joint name="${prefix}d435i_joint" type="fixed">
@@ -18,19 +21,16 @@
       <parent>${prefix}bottom_screw_frame</parent>
       <child>${prefix}d435i</child>
     </joint>
-
     <link name="${prefix}d435i">
       <pose relative_to="${prefix}d435i_joint">0 0 0 0 0 0</pose>
       <visual name="visual">
         <pose>-0.0211 -0.0175 0 0 0 ${pi/2}</pose>
         <xmacro_block name="geometry_mesh" uri="model://d435i/meshes/d435.dae" />
       </visual>
-
       <collision name="collision">
         <pose>-0.008 -0.0175 0 0 0 0</pose>
         <xmacro_block name="geometry_box" x="0.02505" y="0.09" z="0.025" />
       </collision>
-
       <inertial>
         <pose>-0.008 -0.0175 0 0 0 0</pose>
         <xmacro_block name="inertia_box" m="0.072" x="0.02505" y="0.09" z="0.025" />
@@ -94,6 +94,9 @@
     </joint>
     <link name="${prefix}depth_frame">
       <pose relative_to="${prefix}depth_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <joint name="${prefix}depth_optical_joint" type="fixed">
@@ -103,6 +106,9 @@
     </joint>
     <link name="${prefix}depth_optical_frame">
       <pose relative_to="${prefix}depth_optical_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <!-- camera left IR joints and links (infra1) -->
@@ -113,6 +119,9 @@
     </joint>
     <link name="${prefix}infra1_frame">
       <pose relative_to="${prefix}infra1_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
 
       <!-- Infra1 camera sensor -->
       <sensor name="${prefix}infra1" type="camera">
@@ -146,6 +155,9 @@
     </joint>
     <link name="${prefix}infra1_optical_frame">
       <pose relative_to="${prefix}infra1_optical_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <!-- camera right IR joints and links (infra2) -->
@@ -156,6 +168,9 @@
     </joint>
     <link name="${prefix}infra2_frame">
       <pose relative_to="${prefix}infra2_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
 
       <!-- Infra2 camera sensor -->
       <sensor name="${prefix}infra2" type="camera">
@@ -189,6 +204,9 @@
     </joint>
     <link name="${prefix}infra2_optical_frame">
       <pose relative_to="${prefix}infra2_optical_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <!-- camera color joints and links -->
@@ -199,6 +217,9 @@
     </joint>
     <link name="${prefix}color_frame">
       <pose relative_to="${prefix}color_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <joint name="${prefix}color_optical_joint" type="fixed">
@@ -208,6 +229,9 @@
     </joint>
     <link name="${prefix}color_optical_frame">
       <pose relative_to="${prefix}color_optical_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <!-- camera imu joints and links -->
@@ -218,6 +242,9 @@
     </joint>
     <link name="${prefix}imu_frame">
       <pose relative_to="${prefix}imu_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <!-- IMU optical frame for accelerometer -->
@@ -228,6 +255,9 @@
     </joint>
     <link name="${prefix}accel_frame">
       <pose relative_to="${prefix}accel_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <joint name="${prefix}accel_optical_joint" type="fixed">
@@ -237,6 +267,9 @@
     </joint>
     <link name="${prefix}accel_optical_frame">
       <pose relative_to="${prefix}accel_optical_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <!-- IMU optical frame for gyroscope -->
@@ -247,6 +280,9 @@
     </joint>
     <link name="${prefix}gyro_frame">
       <pose relative_to="${prefix}gyro_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
     <joint name="${prefix}gyro_optical_joint" type="fixed">
@@ -256,6 +292,9 @@
     </joint>
     <link name="${prefix}gyro_optical_frame">
       <pose relative_to="${prefix}gyro_optical_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <xmacro_block name="inertia_sphere" m="1e-9" r="1e-9"/>
+      </inertial>
     </link>
 
   </xmacro_define_block>

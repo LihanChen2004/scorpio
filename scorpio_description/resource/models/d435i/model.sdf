@@ -42,6 +42,17 @@
 		</joint>
 		<link name="simple_bottom_screw_frame">
 			<pose relative_to="simple_d435i_bottom_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<joint name="simple_d435i_joint" type="fixed">
 			<pose relative_to="simple_bottom_screw_frame">0 0.0175 0.0125 0 0 0</pose>
@@ -133,6 +144,17 @@
 		</joint>
 		<link name="simple_depth_frame">
 			<pose relative_to="simple_depth_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<joint name="simple_depth_optical_joint" type="fixed">
 			<pose relative_to="simple_depth_frame">0 0 0 -1.5707963267948966 0 -1.5707963267948966</pose>
@@ -141,6 +163,17 @@
 		</joint>
 		<link name="simple_depth_optical_frame">
 			<pose relative_to="simple_depth_optical_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<!-- camera left IR joints and links (infra1) -->
 		<joint name="simple_infra1_joint" type="fixed">
@@ -150,6 +183,17 @@
 		</joint>
 		<link name="simple_infra1_frame">
 			<pose relative_to="simple_infra1_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 			<!-- Infra1 camera sensor -->
 			<sensor name="simple_infra1" type="camera">
 				<always_on>1</always_on>
@@ -181,6 +225,17 @@
 		</joint>
 		<link name="simple_infra1_optical_frame">
 			<pose relative_to="simple_infra1_optical_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<!-- camera right IR joints and links (infra2) -->
 		<joint name="simple_infra2_joint" type="fixed">
@@ -190,6 +245,17 @@
 		</joint>
 		<link name="simple_infra2_frame">
 			<pose relative_to="simple_infra2_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 			<!-- Infra2 camera sensor -->
 			<sensor name="simple_infra2" type="camera">
 				<always_on>1</always_on>
@@ -221,6 +287,17 @@
 		</joint>
 		<link name="simple_infra2_optical_frame">
 			<pose relative_to="simple_infra2_optical_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<!-- camera color joints and links -->
 		<joint name="simple_color_joint" type="fixed">
@@ -230,6 +307,17 @@
 		</joint>
 		<link name="simple_color_frame">
 			<pose relative_to="simple_color_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<joint name="simple_color_optical_joint" type="fixed">
 			<pose relative_to="simple_color_frame">0 0 0 -1.5707963267948966 0 -1.5707963267948966</pose>
@@ -238,6 +326,17 @@
 		</joint>
 		<link name="simple_color_optical_frame">
 			<pose relative_to="simple_color_optical_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<!-- camera imu joints and links -->
 		<joint name="simple_imu_joint" type="fixed">
@@ -247,6 +346,17 @@
 		</joint>
 		<link name="simple_imu_frame">
 			<pose relative_to="simple_imu_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<!-- IMU optical frame for accelerometer -->
 		<joint name="simple_accel_joint" type="fixed">
@@ -256,6 +366,17 @@
 		</joint>
 		<link name="simple_accel_frame">
 			<pose relative_to="simple_accel_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<joint name="simple_accel_optical_joint" type="fixed">
 			<pose relative_to="simple_accel_frame">0 0 0 -1.5707963267948966 0 -1.5707963267948966</pose>
@@ -264,6 +385,17 @@
 		</joint>
 		<link name="simple_accel_optical_frame">
 			<pose relative_to="simple_accel_optical_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<!-- IMU optical frame for gyroscope -->
 		<joint name="simple_gyro_joint" type="fixed">
@@ -273,6 +405,17 @@
 		</joint>
 		<link name="simple_gyro_frame">
 			<pose relative_to="simple_gyro_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 		<joint name="simple_gyro_optical_joint" type="fixed">
 			<pose relative_to="simple_gyro_frame">0 0 0 -1.5707963267948966 0 -1.5707963267948966</pose>
@@ -281,6 +424,17 @@
 		</joint>
 		<link name="simple_gyro_optical_frame">
 			<pose relative_to="simple_gyro_optical_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 		</link>
 	</model>
 </sdf>

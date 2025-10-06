@@ -12,19 +12,43 @@
 
     <pose>0 0 0.2 0 0 0</pose>
     <xmacro_block name="scorpio" />
-    <xmacro_block name="d435i" prefix="front_" parent="base_link" pose="0.15 0 0.23 0 0 0" />
+    <xmacro_block name="d435i" prefix="front_" parent="base_link" pose="0.15 0 0.5 0 0 0" />
     <xmacro_block name="rplidar_a2" prefix="" parent="base_link" pose="-0.04 0.0 0.24 0 0 0"
       update_rate="20" samples="1875" visualize="false" />
 
-    <!-- diff drive plugin -->
-    <plugin filename="ignition-gazebo-diff-drive-system" name="ignition::gazebo::systems::DiffDrive">
-      <left_joint>wheel_left_joint</left_joint>
-      <right_joint>wheel_right_joint</right_joint>
-      <wheel_separation>0.5605</wheel_separation>
-      <wheel_radius>0.195</wheel_radius>
-      <odom_publish_frequency>20</odom_publish_frequency>
+    <!-- Ackermann steering plugin -->
+    <plugin filename="ignition-gazebo-ackermann-steering-system"
+      name="ignition::gazebo::systems::AckermannSteering">
+
+      <left_joint>left_rear_wheel_joint</left_joint>
+      <left_joint>left_front_wheel_joint</left_joint>
+      <right_joint>right_rear_wheel_joint</right_joint>
+      <right_joint>right_front_wheel_joint</right_joint>
+
+      <left_steering_joint>left_front_steering_joint</left_steering_joint>
+      <right_steering_joint>right_front_steering_joint</right_steering_joint>
+
+      <!-- 车辆几何参数 -->
+      <wheel_separation>0.1856</wheel_separation>  <!-- 左右轮间距 -->
+      <kingpin_width>0.18</kingpin_width>        <!-- 转向销间距，通常略小于轮间距 -->
+      <wheel_base>0.315</wheel_base>               <!-- 前后轮轴距 -->
+      <wheel_radius>0.052</wheel_radius>          <!-- 轮子半径 -->
+
+      <!-- 转向限制 (弧度) -->
+      <steering_limit>-${pi/6}</steering_limit>     <!-- 30度转向限制 -->
+
+      <!-- 速度和加速度限制 -->
+      <min_velocity>-2.0</min_velocity>
+      <max_velocity>2.0</max_velocity>
+      <min_acceleration>-6.0</min_acceleration>
+      <max_acceleration>6.0</max_acceleration>
+
+      <!-- 坐标系设置 -->
       <frame_id>odom</frame_id>
       <child_frame_id>base_link</child_frame_id>
+
+      <!-- 里程计发布频率 -->
+      <odom_publish_frequency>20</odom_publish_frequency>
     </plugin>
 
     <!-- pose publisher plugin -->
