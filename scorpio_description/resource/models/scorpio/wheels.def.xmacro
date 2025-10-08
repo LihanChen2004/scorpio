@@ -9,8 +9,8 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <lower>-${pi/4}</lower>
-          <upper>${pi/4}</upper>
+          <lower>-${pi/3}</lower>
+          <upper>${pi/3}</upper>
           <effort>1000</effort>
           <velocity>10</velocity>
         </limit>
@@ -24,7 +24,6 @@
       </inertial>
     </link>
 
-    <!-- Wheel joint (horizontal axis) -->
     <joint name="${prefix}_wheel_joint" type="revolute">
       <pose relative_to="${prefix}_steering_link">0 0 0 0 0 0</pose>
       <parent>${prefix}_steering_link</parent>
@@ -40,11 +39,10 @@
       </axis>
     </joint>
 
-    <!-- Wheel link -->
     <link name="${prefix}_wheel">
       <pose relative_to="${prefix}_wheel_joint">0 0 0 0 0 0</pose>
       <inertial>
-        <pose>0 0 0 1.5707 0 0</pose>
+        <pose>0 0 0 ${pi/2} 0 0</pose>
         <xmacro_block name="inertia_cylinder" m="0.2" r="0.054" l="0.04" />
       </inertial>
       <visual name="${prefix}_wheel_visual">
@@ -56,7 +54,7 @@
         </material>
       </visual>
       <collision name="${prefix}_wheel_collision">
-        <pose>0 0 0 1.5707 0 0</pose>
+        <pose>0 0 0 ${pi/2} 0 0</pose>
         <xmacro_block name="geometry_cylinder" r="0.054" l="0.04" />
         <surface>
           <friction>
@@ -78,8 +76,8 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <lower>-${pi/4}</lower>
-          <upper>${pi/4}</upper>
+          <lower>-${pi/3}</lower>
+          <upper>${pi/3}</upper>
           <effort>1000</effort>
           <velocity>10</velocity>
         </limit>
@@ -111,7 +109,7 @@
     <link name="${prefix}_wheel">
       <pose relative_to="${prefix}_wheel_joint">0 0 0 0 0 0</pose>
       <inertial>
-        <pose>0 0 0 1.5707 0 0</pose>
+        <pose>0 0 0 ${pi/2} 0 0</pose>
         <xmacro_block name="inertia_cylinder" m="0.2" r="0.054" l="0.04" />
       </inertial>
       <visual name="${prefix}_wheel_visual">
@@ -123,7 +121,7 @@
         </material>
       </visual>
       <collision name="${prefix}_wheel_collision">
-        <pose>0 0 0 1.5707 0 0</pose>
+        <pose>0 0 0 ${pi/2} 0 0</pose>
         <xmacro_block name="geometry_cylinder" r="0.054" l="0.04" />
         <surface>
           <friction>
@@ -156,7 +154,7 @@
     <link name="${prefix}_wheel">
       <pose relative_to="${prefix}_wheel_joint">0 0 0 0 0 0</pose>
       <inertial>
-        <pose>0 0 0 1.5707 0 0</pose>
+        <pose>0 0 0 ${pi/2} 0 0</pose>
         <xmacro_block name="inertia_cylinder" m="0.2" r="0.054" l="0.04" />
       </inertial>
       <visual name="${prefix}_wheel_visual">
@@ -168,7 +166,7 @@
         </material>
       </visual>
       <collision name="${prefix}_wheel_collision">
-        <pose>0 0 0 1.5707 0 0</pose>
+        <pose>0 0 0 ${pi/2} 0 0</pose>
         <xmacro_block name="geometry_cylinder" r="0.054" l="0.04" />
         <surface>
           <friction>
@@ -200,7 +198,7 @@
     <link name="${prefix}_wheel">
       <pose relative_to="${prefix}_wheel_joint">0 0 0 0 0 0</pose>
       <inertial>
-        <pose>0 0 0 1.5707 0 0</pose>
+        <pose>0 0 0 ${pi/2} 0 0</pose>
         <xmacro_block name="inertia_cylinder" m="0.2" r="0.054" l="0.04" />
       </inertial>
       <visual name="${prefix}_wheel_visual">
@@ -212,7 +210,7 @@
         </material>
       </visual>
       <collision name="${prefix}_wheel_collision">
-        <pose>0 0 0 1.5707 0 0</pose>
+        <pose>0 0 0 ${pi/2} 0 0</pose>
         <xmacro_block name="geometry_cylinder" r="0.054" l="0.04" />
         <surface>
           <friction>

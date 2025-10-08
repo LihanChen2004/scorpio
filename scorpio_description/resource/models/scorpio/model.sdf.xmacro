@@ -19,35 +19,26 @@
     <!-- Ackermann steering plugin -->
     <plugin filename="ignition-gazebo-ackermann-steering-system"
       name="ignition::gazebo::systems::AckermannSteering">
+      <left_joint>front_left_wheel_joint</left_joint>
+      <left_joint>rear_left_wheel_joint</left_joint>
+      <right_joint>front_right_wheel_joint</right_joint>
+      <right_joint>rear_right_wheel_joint</right_joint>
+      <left_steering_joint>front_left_steering_joint</left_steering_joint>
+      <right_steering_joint>front_right_steering_joint</right_steering_joint>
 
-      <left_joint>left_rear_wheel_joint</left_joint>
-      <left_joint>left_front_wheel_joint</left_joint>
-      <right_joint>right_rear_wheel_joint</right_joint>
-      <right_joint>right_front_wheel_joint</right_joint>
+      <wheel_separation>0.1856</wheel_separation>   <!-- 左右轮间距 -->
+      <kingpin_width>0.1856</kingpin_width>         <!-- 转向销间距 -->
+      <wheel_base>0.315</wheel_base>                <!-- 前后轮轴距 -->
+      <wheel_radius>0.052</wheel_radius>            <!-- 轮子半径 -->
 
-      <left_steering_joint>left_front_steering_joint</left_steering_joint>
-      <right_steering_joint>right_front_steering_joint</right_steering_joint>
-
-      <!-- 车辆几何参数 -->
-      <wheel_separation>0.1856</wheel_separation>  <!-- 左右轮间距 -->
-      <kingpin_width>0.18</kingpin_width>        <!-- 转向销间距，通常略小于轮间距 -->
-      <wheel_base>0.315</wheel_base>               <!-- 前后轮轴距 -->
-      <wheel_radius>0.052</wheel_radius>          <!-- 轮子半径 -->
-
-      <!-- 转向限制 (弧度) -->
-      <steering_limit>-${pi/6}</steering_limit>     <!-- 30度转向限制 -->
-
-      <!-- 速度和加速度限制 -->
+      <steering_limit>${pi/4}</steering_limit>
       <min_velocity>-2.0</min_velocity>
       <max_velocity>2.0</max_velocity>
       <min_acceleration>-6.0</min_acceleration>
       <max_acceleration>6.0</max_acceleration>
 
-      <!-- 坐标系设置 -->
       <frame_id>odom</frame_id>
       <child_frame_id>base_link</child_frame_id>
-
-      <!-- 里程计发布频率 -->
       <odom_publish_frequency>20</odom_publish_frequency>
     </plugin>
 
