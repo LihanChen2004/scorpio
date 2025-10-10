@@ -67,6 +67,10 @@
 					</box>
 				</geometry>
 			</collision>
+			<sensor name="base_imu" type="imu">
+				<always_on>1</always_on>
+				<update_rate>200</update_rate>
+			</sensor>
 		</link>
 		<!-- 左后轮 (后轮，只有驱动，没有转向) -->
 		<joint name="rear_left_wheel_joint" type="revolute">

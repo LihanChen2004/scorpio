@@ -12,6 +12,12 @@
   gz_type_name: "ignition.msgs.Model"
   direction: "GZ_TO_ROS"
 
+- ros_topic_name: "/base_imu/imu"
+  gz_topic_name: "/world/default/model/scorpio/link/base_link/sensor/base_imu/imu"
+  ros_type_name: "sensor_msgs/msg/Imu"
+  gz_type_name: "ignition.msgs.IMU"
+  direction: "GZ_TO_ROS"
+
 - ros_topic_name: "/front_d435i/imu"
   gz_topic_name: "/world/default/model/scorpio/link/front_d435i/sensor/front_imu/imu"
   ros_type_name: "sensor_msgs/msg/Imu"

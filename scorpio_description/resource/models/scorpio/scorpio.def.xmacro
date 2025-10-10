@@ -39,6 +39,11 @@
         <pose>0.015 0 0.145 0 0 0</pose>
         <xmacro_block name="geometry_box" x="0.467" y="0.203" z="0.19" />
       </collision>
+
+      <sensor name="base_imu" type="imu">
+        <always_on>1</always_on>
+        <update_rate>200</update_rate>
+      </sensor>
     </link>
 
     <!-- 左后轮 (后轮，只有驱动，没有转向) -->
