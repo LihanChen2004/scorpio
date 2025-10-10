@@ -15,6 +15,7 @@
 	<exec_depend>robot_state_publisher</exec_depend>
 	<exec_depend>xacro</exec_depend>
 	<exec_depend>nav2_common</exec_depend>
+  <exec_depend>ros2_control</exec_depend>
 
 	<depend>scorpio_description</depend>
 	<depend>sdformat_tools</depend>

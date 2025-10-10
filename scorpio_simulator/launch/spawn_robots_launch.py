@@ -3,69 +3,117 @@ import os
 import yaml
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
+from launch.actions import RegisterEventHandler
+from launch.event_handlers import OnProcessExit
 from launch_ros.actions import Node
 from sdformat_tools.urdf_generator import UrdfGenerator
 from xmacro.xmacro4sdf import XMLMacro4sdf
 
 
 def generate_launch_description():
-    pkg_simulator = get_package_share_directory("scorpio_simulator")
-    pkg_robot_description = get_package_share_directory("scorpio_description")
+    # Get package directories
+    scorpio_description_dir = get_package_share_directory("scorpio_description")
+    scorpio_simulator_dir = get_package_share_directory("scorpio_simulator")
 
-    robot_xmacro_path = os.path.join(
-        pkg_robot_description,
+    # Define file paths
+    robot_xmacro_file = os.path.join(
+        scorpio_description_dir,
         "resource",
         "models",
         "scorpio",
         "model.sdf.xmacro",
     )
 
-    bridge_config = os.path.join(pkg_simulator, "config", "ros_gz_bridge.yaml")
+    ros2_control_urdf_file = os.path.join(
+        scorpio_description_dir,
+        "resource",
+        "models",
+        "scorpio",
+        "ros2_control.urdf",
+    )
 
-    # Get spawn robot init pose
-    gz_world_path = os.path.join(pkg_simulator, "config", "gz_world.yaml")
-    with open(gz_world_path) as file:
-        config = yaml.safe_load(file)
-        selected_world = config.get("world")
-        robots = config["robots"].get(selected_world)
+    ros2_controllers_config = os.path.join(
+        scorpio_description_dir,
+        "config",
+        "ackermann_drive_controller.yaml",
+    )
 
-    xmacro = XMLMacro4sdf()
-    xmacro.set_xml_file(robot_xmacro_path)
+    bridge_config_file = os.path.join(
+        scorpio_simulator_dir, "config", "ros_gz_bridge.yaml"
+    )
 
+    # Load robot spawn configuration
+    gz_world_config_file = os.path.join(
+        scorpio_simulator_dir, "config", "gz_world.yaml"
+    )
+
+    with open(gz_world_config_file) as file:
+        world_config = yaml.safe_load(file)
+        selected_world = world_config.get("world")
+        robots_config = world_config["robots"].get(selected_world)
+
+    # Initialize xmacro processor
+    xmacro_processor = XMLMacro4sdf()
+    xmacro_processor.set_xml_file(robot_xmacro_file)
+
+    # Create launch description
     ld = LaunchDescription()
 
-    for robot in robots:
+    # Process each robot configuration
+    for robot_config in robots_config:
         # Generate SDF from xmacro
-        xmacro.generate()
-        robot_xml = xmacro.to_string()
+        xmacro_processor.generate(
+            {"ros2_control_parameters_file_path": ros2_controllers_config}
+        )
+        robot_sdf_xml = xmacro_processor.to_string()
 
         # Generate URDF from SDF
         urdf_generator = UrdfGenerator()
-        urdf_generator.parse_from_sdf_string(robot_xml)
+        urdf_generator.parse_from_sdf_string(robot_sdf_xml)
+        urdf_generator.merge_urdf_file(ros2_control_urdf_file)
         robot_urdf_xml = urdf_generator.to_string()
 
-        spawn_robot = Node(
+        # Create robot spawn node
+        spawn_robot_node = Node(
             package="ros_gz_sim",
             executable="create",
             arguments=[
                 "-string",
-                robot_xml,
+                robot_sdf_xml,
                 "-name",
-                robot["name"],
+                robot_config["name"],
                 "-allow_renaming",
                 "true",
                 "-x",
-                robot["x_pose"],
+                robot_config["x_pose"],
                 "-y",
-                robot["y_pose"],
+                robot_config["y_pose"],
                 "-z",
-                robot["z_pose"],
+                robot_config["z_pose"],
                 "-Y",
-                robot["yaw"],
+                robot_config["yaw"],
             ],
         )
 
-        robot_state_publisher = Node(
+        # Create controller nodes
+        joint_state_broadcaster_node = Node(
+            package="controller_manager",
+            executable="spawner",
+            arguments=["joint_state_broadcaster"],
+        )
+
+        ackermann_steering_controller_node = Node(
+            package="controller_manager",
+            executable="spawner",
+            arguments=[
+                "ackermann_steering_controller",
+                "--param-file",
+                ros2_controllers_config,
+            ],
+        )
+
+        # Create robot state publisher node
+        robot_state_publisher_node = Node(
             package="robot_state_publisher",
             executable="robot_state_publisher",
             parameters=[
@@ -76,14 +124,33 @@ def generate_launch_description():
             ],
         )
 
-        robot_ign_bridge = Node(
+        # Create bridge node
+        ros_gz_bridge_node = Node(
             package="ros_gz_bridge",
             executable="parameter_bridge",
-            parameters=[{"config_file": bridge_config}],
+            parameters=[{"config_file": bridge_config_file}],
         )
 
-        ld.add_action(spawn_robot)
-        ld.add_action(robot_state_publisher)
-        ld.add_action(robot_ign_bridge)
+        # Create event handlers for sequential startup
+        spawn_robot_event_handler = RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=spawn_robot_node,
+                on_exit=[joint_state_broadcaster_node],
+            )
+        )
+
+        joint_state_broadcaster_event_handler = RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=joint_state_broadcaster_node,
+                on_exit=[ackermann_steering_controller_node],
+            )
+        )
+
+        # Add all actions to launch description
+        ld.add_action(spawn_robot_node)
+        ld.add_action(spawn_robot_event_handler)
+        ld.add_action(joint_state_broadcaster_event_handler)
+        ld.add_action(robot_state_publisher_node)
+        ld.add_action(ros_gz_bridge_node)
 
     return ld

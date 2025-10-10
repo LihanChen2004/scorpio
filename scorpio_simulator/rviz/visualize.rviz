@@ -25,7 +25,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: d435i_point
+    SyncSource: LaserScan
 Visualization Manager:
   Class: ""
   Displays:
@@ -74,149 +74,96 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        left_accel_frame:
+        front_accel_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        left_accel_optical_frame:
+        front_accel_optical_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        left_bottom_screw_frame:
+        front_bottom_screw_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        left_color_frame:
+        front_color_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        left_color_optical_frame:
+        front_color_optical_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        left_d435i:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_depth_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_depth_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_gyro_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_gyro_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_imu_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_infra1_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_infra1_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_infra2_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_infra2_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        mid360:
+        front_d435i:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_accel_frame:
+        front_depth_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        right_accel_optical_frame:
+        front_depth_optical_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        right_bottom_screw_frame:
+        front_gyro_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        right_color_frame:
+        front_gyro_optical_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        right_color_optical_frame:
+        front_imu_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        right_d435i:
+        front_infra1_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
-        right_depth_frame:
+        front_infra1_optical_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        right_depth_optical_frame:
+        front_infra2_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        right_gyro_frame:
+        front_infra2_optical_frame:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        right_gyro_optical_frame:
+        front_left_steering_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        right_imu_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        right_infra1_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        right_infra1_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        right_infra2_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        right_infra2_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wheel_back:
+        front_left_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        wheel_front:
+        front_right_steering_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        front_right_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        wheel_left:
+        rear_left_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        wheel_right:
+        rear_right_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rplidar_a2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -238,75 +185,49 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
-        left_accel_frame:
+        front_accel_frame:
           Value: true
-        left_accel_optical_frame:
+        front_accel_optical_frame:
           Value: true
-        left_bottom_screw_frame:
+        front_bottom_screw_frame:
           Value: true
-        left_color_frame:
+        front_color_frame:
           Value: true
-        left_color_optical_frame:
+        front_color_optical_frame:
           Value: true
-        left_d435i:
+        front_d435i:
           Value: true
-        left_depth_frame:
+        front_depth_frame:
           Value: true
-        left_depth_optical_frame:
+        front_depth_optical_frame:
           Value: true
-        left_gyro_frame:
+        front_gyro_frame:
           Value: true
-        left_gyro_optical_frame:
+        front_gyro_optical_frame:
           Value: true
-        left_imu_frame:
+        front_imu_frame:
           Value: true
-        left_infra1_frame:
+        front_infra1_frame:
           Value: true
-        left_infra1_optical_frame:
+        front_infra1_optical_frame:
           Value: true
-        left_infra2_frame:
+        front_infra2_frame:
           Value: true
-        left_infra2_optical_frame:
+        front_infra2_optical_frame:
           Value: true
-        mid360:
+        front_left_steering_link:
           Value: true
-        right_accel_frame:
+        front_left_wheel:
           Value: true
-        right_accel_optical_frame:
+        front_right_steering_link:
           Value: true
-        right_bottom_screw_frame:
+        front_right_wheel:
           Value: true
-        right_color_frame:
+        rear_left_wheel:
           Value: true
-        right_color_optical_frame:
+        rear_right_wheel:
           Value: true
-        right_d435i:
-          Value: true
-        right_depth_frame:
-          Value: true
-        right_depth_optical_frame:
-          Value: true
-        right_gyro_frame:
-          Value: true
-        right_gyro_optical_frame:
-          Value: true
-        right_imu_frame:
-          Value: true
-        right_infra1_frame:
-          Value: true
-        right_infra1_optical_frame:
-          Value: true
-        right_infra2_frame:
-          Value: true
-        right_infra2_optical_frame:
-          Value: true
-        wheel_back:
-          Value: true
-        wheel_front:
-          Value: true
-        wheel_left:
-          Value: true
-        wheel_right:
+        rplidar_a2:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -316,57 +237,38 @@ Visualization Manager:
       Tree:
         base_footprint:
           base_link:
-            left_bottom_screw_frame:
-              left_d435i:
-                left_depth_frame:
-                  left_color_frame:
-                    left_color_optical_frame:
-                      {}
-                  left_depth_optical_frame:
+            front_bottom_screw_frame:
+              front_d435i:
+                front_color_frame:
+                  front_color_optical_frame:
                     {}
-                  left_infra1_frame:
-                    left_infra1_optical_frame:
-                      {}
-                  left_infra2_frame:
-                    left_infra2_optical_frame:
-                      {}
-                left_imu_frame:
-                  left_accel_frame:
-                    left_accel_optical_frame:
-                      {}
-                  left_gyro_frame:
-                    left_gyro_optical_frame:
-                      {}
-            mid360:
-              {}
-            right_bottom_screw_frame:
-              right_d435i:
-                right_depth_frame:
-                  right_color_frame:
-                    right_color_optical_frame:
-                      {}
-                  right_depth_optical_frame:
+                front_depth_frame:
+                  front_depth_optical_frame:
                     {}
-                  right_infra1_frame:
-                    right_infra1_optical_frame:
+                front_imu_frame:
+                  front_accel_frame:
+                    front_accel_optical_frame:
                       {}
-                  right_infra2_frame:
-                    right_infra2_optical_frame:
+                  front_gyro_frame:
+                    front_gyro_optical_frame:
                       {}
-                right_imu_frame:
-                  right_accel_frame:
-                    right_accel_optical_frame:
-                      {}
-                  right_gyro_frame:
-                    right_gyro_optical_frame:
-                      {}
-            wheel_back:
+                front_infra1_frame:
+                  front_infra1_optical_frame:
+                    {}
+                front_infra2_frame:
+                  front_infra2_optical_frame:
+                    {}
+            front_left_steering_link:
+              front_left_wheel:
+                {}
+            front_right_steering_link:
+              front_right_wheel:
+                {}
+            rear_left_wheel:
               {}
-            wheel_front:
+            rear_right_wheel:
               {}
-            wheel_left:
-              {}
-            wheel_right:
+            rplidar_a2:
               {}
       Update Interval: 0
       Value: true
@@ -412,6 +314,40 @@ Visualization Manager:
         Value: true
       Axis: Z
       Channel Name: intensity
+      Class: rviz_default_plugins/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 0
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Points
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /rplidar_a2/scan
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
       Class: rviz_default_plugins/PointCloud2
       Color: 255; 255; 255
       Color Transformer: RGB8
@@ -434,7 +370,7 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /left_d435i/depth/depth_image/points
+        Value: /front_d435i/depth/depth_image/points
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
@@ -449,10 +385,11 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /left_d435i/color/image
+        Value: /front_d435i/color/image
       Value: true
       Visibility:
         Grid: false
+        LaserScan: true
         RobotModel: false
         TF: false
         Value: true
@@ -472,15 +409,15 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /left_d435i/infra1/image
+        Value: /front_d435i/infra1/image
       Value: true
       Visibility:
         Grid: false
+        LaserScan: true
         RobotModel: false
         TF: false
         Value: true
         d435i_color: true
-        d435i_infra1: true
         d435i_infra2: true
         d435i_point: true
         livox_lidar: true
@@ -496,16 +433,16 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /right_d435i/infra2/image
+        Value: /front_d435i/infra2/image
       Value: true
       Visibility:
         Grid: false
+        LaserScan: true
         RobotModel: false
         TF: false
         Value: true
         d435i_color: true
         d435i_infra1: true
-        d435i_infra2: true
         d435i_point: true
         livox_lidar: true
       Zoom Factor: 1
@@ -555,25 +492,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 8.643316268920898
+      Distance: 1.30183744430542
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.11981737613677979
-        Y: -0.004076361656188965
-        Z: 0.38772034645080566
+        X: 0.03055962361395359
+        Y: 0.012352710589766502
+        Z: 0.19649381935596466
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.46006888151168823
+      Pitch: 0.335068941116333
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.136625051498413
+      Yaw: 2.5866236686706543
     Saved: ~
 Window Geometry:
   Displays:
@@ -591,7 +528,7 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 2138
-  X: 1270
+  X: 986
   Y: 54
   d435i_color:
     collapsed: false
