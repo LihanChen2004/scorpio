@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <!-- include definition -->
+  <xmacro_include uri="model://scorpio/scorpio.def.xmacro" />
+  <xmacro_include uri="model://d435i/model.sdf.xmacro" />
+  <xmacro_include uri="model://mid360/model.sdf.xmacro" />
+  <xmacro_include uri="model://rplidar_a2/model.sdf.xmacro" />
+
+  <!--property definition-->
+  <xmacro_define_value name="ros2_control_parameters_file_path" value="none" />
+
+  <!-- scorpio model -->
+  <model name='scorpio'>
+    <pose>0 0 0.2 0 0 0</pose>
+    <xmacro_block name="scorpio" />
+    <xmacro_block name="d435i" prefix="front_" parent="base_link" pose="0.15 0 0.23 0 0 0" />
+    <xmacro_block name="rplidar_a2" prefix="" parent="base_link" pose="-0.04 0.0 0.235 0 0 0" update_rate="20" samples="1875" visualize="false" />
+
+    <plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher">
+    </plugin>
+
+    <plugin filename="ignition-gazebo-odometry-publisher-system" name="ignition::gazebo::systems::OdometryPublisher">
+      <odom_frame>odom</odom_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+      <odom_publish_frequency>50</odom_publish_frequency>
+    </plugin>
+
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+      <parameters>${ros2_control_parameters_file_path}</parameters>
+      <ros>
+        <remapping>/ackermann_steering_controller/reference_unstamped:=/cmd_vel</remapping>
+      </ros>
+    </plugin>
+
+  </model>
+</sdf>

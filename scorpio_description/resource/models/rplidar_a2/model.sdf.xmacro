@@ -63,7 +63,6 @@
       </collision>
     </link>
     <!-- update_rate(10-15),samples(400) -->
-    <xmacro_block name="rplidar_a2" prefix="simple_" parent="base_link" pose="0 0 0.2 0 0 0"
-      update_rate="10" samples="400" visualize="true" />
+    <xmacro_block name="rplidar_a2" prefix="simple_" parent="base_link" pose="0 0 0.2 0 0 0" update_rate="10" samples="400" visualize="true" />
   </model>
 </sdf>

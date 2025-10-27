@@ -9,7 +9,7 @@
       </inertial>
     </link>
     <joint name="base_to_chassis" type="fixed">
-      <pose>0 0 0.06 0 0 0</pose>
+      <pose>0 0 0.04 0 0 0</pose>
       <parent>base_footprint</parent>
       <child>base_link</child>
     </joint>
@@ -46,18 +46,10 @@
       </sensor>
     </link>
 
-    <!-- 左后轮 (后轮，只有驱动，没有转向) -->
-    <xmacro_block name="rear_wheel_l" prefix="rear_left" parent="base_link"
-      pose="-0.1575 0.0928 0.0525 0 0 0" />
-    <!-- 右后轮 (后轮，只有驱动，没有转向) -->
-    <xmacro_block name="rear_wheel_r" prefix="rear_right" parent="base_link"
-      pose="-0.1575 -0.0928 0.0525 0 0 0" />
-    <!-- 左前轮 (前轮，有转向功能) -->
-    <xmacro_block name="front_steering_wheel_l" prefix="front_left" parent="base_link"
-      pose="0.1575 0.0928 0.0525 0 0 0" />
-    <!-- 右前轮 (前轮，有转向功能) -->
-    <xmacro_block name="front_steering_wheel_r" prefix="front_right" parent="base_link"
-      pose="0.1575 -0.0928 0.0525 0 0 0" />
+    <xmacro_block name="rear_wheel_l" prefix="rear_left" parent="base_link" pose="-0.1575 0.0928 0.0525 0 0 0" />
+    <xmacro_block name="rear_wheel_r" prefix="rear_right" parent="base_link" pose="-0.1575 -0.0928 0.0525 0 0 0" />
+    <xmacro_block name="front_steering_wheel_l" prefix="front_left" parent="base_link" pose="0.1575 0.0928 0.0525 0 0 0" />
+    <xmacro_block name="front_steering_wheel_r" prefix="front_right" parent="base_link" pose="0.1575 -0.0928 0.0525 0 0 0" />
 
   </xmacro_define_block>
 </sdf>

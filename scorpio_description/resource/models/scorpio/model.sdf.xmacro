@@ -1,33 +1,41 @@
 <?xml version="1.0"?>
 <sdf version="1.7">
-  <!-- include defination -->
+  <!-- include definition -->
   <xmacro_include uri="model://scorpio/scorpio.def.xmacro" />
-  <xmacro_include uri="model://d435i/model.sdf.xmacro" />
-  <xmacro_include uri="model://mid360/model.sdf.xmacro" />
-  <xmacro_include uri="model://rplidar_a2/model.sdf.xmacro" />
 
-  <!--property defination-->
+  <!--property definition-->
   <xmacro_define_value name="ros2_control_parameters_file_path" value="none" />
 
   <!-- scorpio model -->
   <model name='scorpio'>
-    <self_collide>false</self_collide>
-
     <pose>0 0 0.2 0 0 0</pose>
     <xmacro_block name="scorpio" />
-    <xmacro_block name="d435i" prefix="front_" parent="base_link" pose="0.15 0 0.23 0 0 0" />
-    <xmacro_block name="rplidar_a2" prefix="" parent="base_link" pose="-0.04 0.0 0.235 0 0 0"
-      update_rate="20" samples="1875" visualize="false" />
 
-    <!-- joint state publisher plugin -->
-    <plugin filename="ignition-gazebo-joint-state-publisher-system"
-      name="ignition::gazebo::systems::JointStatePublisher">
+    <plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher">
     </plugin>
 
-    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-      <parameters>${ros2_control_parameters_file_path}</parameters>
-      <!-- <parameters>/home/lihanchen/scorpio_ws/scorpio_ros2_ws/src/scorpio_description/config/ackermann_drive_controller.yaml</parameters> -->
-    </plugin>
+    <plugin filename="ignition-gazebo-ackermann-steering-system" name="ignition::gazebo::systems::AckermannSteering">
+      <left_joint>front_left_wheel_joint</left_joint>
+      <left_joint>rear_left_wheel_joint</left_joint>
+      <right_joint>front_right_wheel_joint</right_joint>
+      <right_joint>rear_right_wheel_joint</right_joint>
+      <left_steering_joint>front_left_steering_joint</left_steering_joint>
+      <right_steering_joint>front_right_steering_joint</right_steering_joint>
 
+      <wheel_separation>0.1856</wheel_separation>
+      <kingpin_width>0.1856</kingpin_width>
+      <wheel_base>0.315</wheel_base>
+      <wheel_radius>0.052</wheel_radius>
+
+      <steering_limit>${pi/4}</steering_limit>
+      <min_velocity>-2.0</min_velocity>
+      <max_velocity>2.0</max_velocity>
+      <min_acceleration>-6.0</min_acceleration>
+      <max_acceleration>6.0</max_acceleration>
+
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_link</child_frame_id>
+      <odom_publish_frequency>20</odom_publish_frequency>
+    </plugin>
   </model>
 </sdf>

@@ -1,18 +1,19 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.8)
 project(scorpio_simulator)
 
-find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_auto REQUIRED)
 
-install(DIRECTORY
-    config
-    launch
-    rviz
-    resource
-
-    DESTINATION share/${PROJECT_NAME}/
-)
-
-# environment
 ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/gazebo.dsv.in")
 
-ament_package()
+if(BUILD_TESTING)
+find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_auto_package(
+  INSTALL_TO_SHARE
+  config
+  launch
+  rviz
+  resource
+)

@@ -78,7 +78,6 @@
       </collision>
     </link>
     <!-- update_rate(10-15),samples(400) -->
-    <xmacro_block name="livox" prefix="simple_" parent="base_link" pose="0 0 0.2 0 0 0"
-      update_rate="10" samples="1500" />
+    <xmacro_block name="livox" prefix="simple_" parent="base_link" pose="0 0 0.2 0 0 0" update_rate="10" samples="1500" />
   </model>
 </sdf>

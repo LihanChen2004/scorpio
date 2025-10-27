@@ -1,6 +1,6 @@
 #!/bin/bash
 path=`pwd`
-for dir in $path/models/*; do
+for dir in $path/resource/models/*; do
     echo "parse "$dir
     cd $dir
     tempfile=`mktemp temp.XXXXXX`

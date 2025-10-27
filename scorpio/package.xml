@@ -11,8 +11,7 @@
 
   <depend>scorpio_description</depend>
   <depend>scorpio_simulator</depend>
-  <depend>scorpio_slam</depend>
-  <depend>scorpio_nvblox</depend>
+  <depend>scorpio_nav2_bringup</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

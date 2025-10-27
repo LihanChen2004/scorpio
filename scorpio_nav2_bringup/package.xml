@@ -1,18 +1,25 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>scorpio_description</name>
+  <name>scorpio_nav2_bringup</name>
   <version>0.0.1</version>
-  <description>scorpio description package for Gazebo simulation</description>
+  <description>Bringup scripts and configurations for the Nav2 stack</description>
   <maintainer email="lihanchen2004@163.com">Lihan Chen</maintainer>
-  <license>Apache License 2.0</license>
+  <license>Apache-2.0</license>
+
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <test_depend>ament_lint_auto</test_depend>
-  <test_depend>ament_lint_common</test_depend>
+  <build_depend>nav2_common</build_depend>
 
-  <exec_depend>gz_ros2_control</exec_depend>
+  <build_depend>navigation2</build_depend>
+  <build_depend>launch_ros</build_depend>
+
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>navigation2</exec_depend>
+  <exec_depend>nav2_common</exec_depend>
+  <exec_depend>slam_toolbox</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_cmake_black</test_depend>
   <test_depend>ament_cmake_xmllint</test_depend>
   <test_depend>ament_cmake_copyright</test_depend>
   <test_depend>launch</test_depend>

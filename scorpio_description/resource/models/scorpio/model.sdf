@@ -4,11 +4,10 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <sdf version="1.7">
-	<!-- include defination -->
-	<!--property defination-->
+	<!-- include definition -->
+	<!--property definition-->
 	<!-- scorpio model -->
 	<model name="scorpio">
-		<self_collide>false</self_collide>
 		<pose>0 0 0.2 0 0 0</pose>
 		<link name="base_footprint">
 			<inertial>
@@ -24,7 +23,7 @@
 			</inertial>
 		</link>
 		<joint name="base_to_chassis" type="fixed">
-			<pose>0 0 0.06 0 0 0</pose>
+			<pose>0 0 0.04 0 0 0</pose>
 			<parent>base_footprint</parent>
 			<child>base_link</child>
 		</joint>
@@ -72,7 +71,6 @@
 				<update_rate>200</update_rate>
 			</sensor>
 		</link>
-		<!-- 左后轮 (后轮，只有驱动，没有转向) -->
 		<joint name="rear_left_wheel_joint" type="revolute">
 			<pose relative_to="base_link">-0.1575 0.0928 0.0525 0 0 0</pose>
 			<parent>base_link</parent>
@@ -124,7 +122,6 @@
 				</geometry>
 			</collision>
 		</link>
-		<!-- 右后轮 (后轮，只有驱动，没有转向) -->
 		<joint name="rear_right_wheel_joint" type="revolute">
 			<pose relative_to="base_link">-0.1575 -0.0928 0.0525 0 0 0</pose>
 			<parent>base_link</parent>
@@ -176,7 +173,6 @@
 				</geometry>
 			</collision>
 		</link>
-		<!-- 左前轮 (前轮，有转向功能) -->
 		<joint name="front_left_steering_joint" type="revolute">
 			<pose relative_to="base_link">0.1575 0.0928 0.0525 0 0 0</pose>
 			<parent>base_link</parent>
@@ -257,7 +253,6 @@
 				</geometry>
 			</collision>
 		</link>
-		<!-- 右前轮 (前轮，有转向功能) -->
 		<joint name="front_right_steering_joint" type="revolute">
 			<pose relative_to="base_link">0.1575 -0.0928 0.0525 0 0 0</pose>
 			<parent>base_link</parent>
@@ -338,477 +333,27 @@
 				</geometry>
 			</collision>
 		</link>
-		<!-- camera body, with origin at bottom screw mount -->
-		<joint name="front_d435i_bottom_joint" type="fixed">
-			<pose relative_to="base_link">0.15 0 0.23 0 0 0</pose>
-			<parent>base_link</parent>
-			<child>front_bottom_screw_frame</child>
-		</joint>
-		<link name="front_bottom_screw_frame">
-			<pose relative_to="front_d435i_bottom_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<joint name="front_d435i_joint" type="fixed">
-			<pose relative_to="front_bottom_screw_frame">0 0.0175 0.0125 0 0 0</pose>
-			<parent>front_bottom_screw_frame</parent>
-			<child>front_d435i</child>
-		</joint>
-		<link name="front_d435i">
-			<pose relative_to="front_d435i_joint">0 0 0 0 0 0</pose>
-			<visual name="visual">
-				<pose>-0.0211 -0.0175 0 0 0 1.5707963267948966</pose>
-				<geometry>
-					<mesh>
-						<uri>model://d435i/meshes/d435.dae</uri>
-					</mesh>
-				</geometry>
-			</visual>
-			<collision name="collision">
-				<pose>-0.008 -0.0175 0 0 0 0</pose>
-				<geometry>
-					<box>
-						<size>0.02505 0.09 0.025</size>
-					</box>
-				</geometry>
-			</collision>
-			<inertial>
-				<pose>-0.008 -0.0175 0 0 0 0</pose>
-				<mass>0.072</mass>
-				<inertia>
-					<ixx>5.235e-05</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>7.515015e-06</iyy>
-					<iyz>0</iyz>
-					<izz>5.236501499999999e-05</izz>
-				</inertia>
-			</inertial>
-			<!-- Color camera sensor -->
-			<sensor name="front_color" type="camera">
-				<always_on>1</always_on>
-				<update_rate>30</update_rate>
-				<camera>
-					<optical_frame_id>front_color_optical_frame</optical_frame_id>
-					<horizontal_fov>1.2112585008840648</horizontal_fov>
-					<image>
-						<width>1920</width>
-						<height>1080</height>
-					</image>
-					<clip>
-						<near>0.1</near>
-						<far>100</far>
-					</clip>
-					<noise>
-						<type>gaussian</type>
-						<mean>0.0</mean>
-						<stddev>0.007</stddev>
-					</noise>
-				</camera>
-			</sensor>
-			<!-- Depth camera sensor -->
-			<sensor name="front_depth" type="depth_camera">
-				<always_on>1</always_on>
-				<update_rate>10</update_rate>
-				<camera>
-					<optical_frame_id>front_depth_optical_frame</optical_frame_id>
-					<horizontal_fov>1.4870205226991686</horizontal_fov>
-					<image>
-						<width>1280</width>
-						<height>720</height>
-						<format>R_FLOAT32</format>
-					</image>
-					<clip>
-						<near>0.1</near>
-						<far>10.0</far>
-					</clip>
-				</camera>
-			</sensor>
-			<!-- IMU sensor -->
-			<sensor name="front_imu" type="imu">
-				<ignition_frame_id>front_imu_frame</ignition_frame_id>
-				<always_on>1</always_on>
-				<update_rate>200</update_rate>
-			</sensor>
-		</link>
-		<!-- camera depth joints and links -->
-		<joint name="front_depth_joint" type="fixed">
-			<pose relative_to="front_d435i">0 0 0 0 0 0</pose>
-			<parent>front_d435i</parent>
-			<child>front_depth_frame</child>
-		</joint>
-		<link name="front_depth_frame">
-			<pose relative_to="front_depth_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<joint name="front_depth_optical_joint" type="fixed">
-			<pose relative_to="front_depth_frame">0 0 0 -1.5707963267948966 0 -1.5707963267948966</pose>
-			<parent>front_depth_frame</parent>
-			<child>front_depth_optical_frame</child>
-		</joint>
-		<link name="front_depth_optical_frame">
-			<pose relative_to="front_depth_optical_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<!-- camera left IR joints and links (infra1) -->
-		<joint name="front_infra1_joint" type="fixed">
-			<pose relative_to="front_d435i">0 0 0 0 0 0</pose>
-			<parent>front_d435i</parent>
-			<child>front_infra1_frame</child>
-		</joint>
-		<link name="front_infra1_frame">
-			<pose relative_to="front_infra1_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-			<!-- Infra1 camera sensor -->
-			<sensor name="front_infra1" type="camera">
-				<always_on>1</always_on>
-				<update_rate>30</update_rate>
-				<camera>
-					<optical_frame_id>front_infra1_optical_frame</optical_frame_id>
-					<horizontal_fov>1.57</horizontal_fov>
-					<image>
-						<width>640</width>
-						<height>480</height>
-						<format>R8G8B8</format>
-					</image>
-					<clip>
-						<near>0.02</near>
-						<far>300</far>
-					</clip>
-					<noise>
-						<type>gaussian</type>
-						<mean>0.0</mean>
-						<stddev>0.007</stddev>
-					</noise>
-				</camera>
-			</sensor>
-		</link>
-		<joint name="front_infra1_optical_joint" type="fixed">
-			<pose relative_to="front_infra1_frame">0 0 0 -1.5707963267948966 0 -1.5707963267948966</pose>
-			<parent>front_infra1_frame</parent>
-			<child>front_infra1_optical_frame</child>
-		</joint>
-		<link name="front_infra1_optical_frame">
-			<pose relative_to="front_infra1_optical_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<!-- camera right IR joints and links (infra2) -->
-		<joint name="front_infra2_joint" type="fixed">
-			<pose relative_to="front_d435i">0 -0.050 0 0 0 0</pose>
-			<parent>front_d435i</parent>
-			<child>front_infra2_frame</child>
-		</joint>
-		<link name="front_infra2_frame">
-			<pose relative_to="front_infra2_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-			<!-- Infra2 camera sensor -->
-			<sensor name="front_infra2" type="camera">
-				<always_on>1</always_on>
-				<update_rate>30</update_rate>
-				<camera>
-					<optical_frame_id>front_infra2_optical_frame</optical_frame_id>
-					<horizontal_fov>1.57</horizontal_fov>
-					<image>
-						<width>640</width>
-						<height>480</height>
-						<format>R8G8B8</format>
-					</image>
-					<clip>
-						<near>0.02</near>
-						<far>300</far>
-					</clip>
-					<noise>
-						<type>gaussian</type>
-						<mean>0.0</mean>
-						<stddev>0.007</stddev>
-					</noise>
-				</camera>
-			</sensor>
-		</link>
-		<joint name="front_infra2_optical_joint" type="fixed">
-			<pose relative_to="front_infra2_frame">0 0 0 -1.5707963267948966 0 -1.5707963267948966</pose>
-			<parent>front_infra2_frame</parent>
-			<child>front_infra2_optical_frame</child>
-		</joint>
-		<link name="front_infra2_optical_frame">
-			<pose relative_to="front_infra2_optical_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<!-- camera color joints and links -->
-		<joint name="front_color_joint" type="fixed">
-			<pose relative_to="front_d435i">0 0.015 0 0 0 0</pose>
-			<parent>front_d435i</parent>
-			<child>front_color_frame</child>
-		</joint>
-		<link name="front_color_frame">
-			<pose relative_to="front_color_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<joint name="front_color_optical_joint" type="fixed">
-			<pose relative_to="front_color_frame">0 0 0 -1.5707963267948966 0 -1.5707963267948966</pose>
-			<parent>front_color_frame</parent>
-			<child>front_color_optical_frame</child>
-		</joint>
-		<link name="front_color_optical_frame">
-			<pose relative_to="front_color_optical_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<!-- camera imu joints and links -->
-		<joint name="front_imu_joint" type="fixed">
-			<pose relative_to="front_d435i">-0.01174 -0.00552 0.0051 0 0 0</pose>
-			<parent>front_d435i</parent>
-			<child>front_imu_frame</child>
-		</joint>
-		<link name="front_imu_frame">
-			<pose relative_to="front_imu_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<!-- IMU optical frame for accelerometer -->
-		<joint name="front_accel_joint" type="fixed">
-			<pose relative_to="front_imu_frame">0 0 0 0 0 0</pose>
-			<parent>front_imu_frame</parent>
-			<child>front_accel_frame</child>
-		</joint>
-		<link name="front_accel_frame">
-			<pose relative_to="front_accel_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<joint name="front_accel_optical_joint" type="fixed">
-			<pose relative_to="front_accel_frame">0 0 0 -1.5707963267948966 0 -1.5707963267948966</pose>
-			<parent>front_accel_frame</parent>
-			<child>front_accel_optical_frame</child>
-		</joint>
-		<link name="front_accel_optical_frame">
-			<pose relative_to="front_accel_optical_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<!-- IMU optical frame for gyroscope -->
-		<joint name="front_gyro_joint" type="fixed">
-			<pose relative_to="front_imu_frame">0 0 0 0 0 0</pose>
-			<parent>front_imu_frame</parent>
-			<child>front_gyro_frame</child>
-		</joint>
-		<link name="front_gyro_frame">
-			<pose relative_to="front_gyro_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<joint name="front_gyro_optical_joint" type="fixed">
-			<pose relative_to="front_gyro_frame">0 0 0 -1.5707963267948966 0 -1.5707963267948966</pose>
-			<parent>front_gyro_frame</parent>
-			<child>front_gyro_optical_frame</child>
-		</joint>
-		<link name="front_gyro_optical_frame">
-			<pose relative_to="front_gyro_optical_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<joint name="rplidar_a2_joint" type="fixed">
-			<pose relative_to="base_link">-0.04 0.0 0.235 0 0 0</pose>
-			<parent>base_link</parent>
-			<child>rplidar_a2</child>
-		</joint>
-		<link name="rplidar_a2">
-			<pose relative_to="rplidar_a2_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<pose>0 0 0.02 0 0 0</pose>
-				<mass>0.005</mass>
-				<inertia>
-					<ixx>2.6666666666666664e-06</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>2.6666666666666664e-06</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-06</izz>
-				</inertia>
-			</inertial>
-			<visual name="visual">
-				<geometry>
-					<mesh>
-						<uri>model://rplidar_a2/meshes/rplidar_a2.dae</uri>
-					</mesh>
-				</geometry>
-			</visual>
-			<collision name="collision">
-				<pose>0 0 0.02 0 0 0</pose>
-				<geometry>
-					<cylinder>
-						<radius>0.04</radius>
-						<length>0.04</length>
-					</cylinder>
-				</geometry>
-			</collision>
-			<sensor name="rplidar_a2" type="gpu_lidar">
-				<ignition_frame_id>rplidar_a2</ignition_frame_id>
-				<pose>0 0 0.03 0 0 0</pose>
-				<always_on>true</always_on>
-				<visualize>false</visualize>
-				<update_rate>20.0</update_rate>
-				<ray>
-					<scan>
-						<horizontal>
-							<samples>1875.0</samples>
-							<resolution>1.0</resolution>
-							<min_angle>0</min_angle>
-							<max_angle>6.28000020980835</max_angle>
-						</horizontal>
-					</scan>
-					<range>
-						<min>0.15</min>
-						<max>12.0</max>
-					</range>
-				</ray>
-				<noise>
-					<type>gaussian</type>
-					<mean>0.0</mean>
-					<stddev>0.01</stddev>
-				</noise>
-			</sensor>
-		</link>
-		<!-- joint state publisher plugin -->
 		<plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher">
     </plugin>
-		<plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-			<parameters>none</parameters>
-			<!-- <parameters>/home/lihanchen/scorpio_ws/scorpio_ros2_ws/src/scorpio_description/config/ackermann_drive_controller.yaml</parameters> -->
+		<plugin filename="ignition-gazebo-ackermann-steering-system" name="ignition::gazebo::systems::AckermannSteering">
+			<left_joint>front_left_wheel_joint</left_joint>
+			<left_joint>rear_left_wheel_joint</left_joint>
+			<right_joint>front_right_wheel_joint</right_joint>
+			<right_joint>rear_right_wheel_joint</right_joint>
+			<left_steering_joint>front_left_steering_joint</left_steering_joint>
+			<right_steering_joint>front_right_steering_joint</right_steering_joint>
+			<wheel_separation>0.1856</wheel_separation>
+			<kingpin_width>0.1856</kingpin_width>
+			<wheel_base>0.315</wheel_base>
+			<wheel_radius>0.052</wheel_radius>
+			<steering_limit>0.7853981633974483</steering_limit>
+			<min_velocity>-2.0</min_velocity>
+			<max_velocity>2.0</max_velocity>
+			<min_acceleration>-6.0</min_acceleration>
+			<max_acceleration>6.0</max_acceleration>
+			<frame_id>odom</frame_id>
+			<child_frame_id>base_link</child_frame_id>
+			<odom_publish_frequency>20</odom_publish_frequency>
 		</plugin>
 	</model>
 </sdf>
-
