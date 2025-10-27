@@ -9,7 +9,7 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     container:
-      image: rostooling/setup-ros-docker:ubuntu-noble-ros-humble-ros-base-latest
+      image: rostooling/setup-ros-docker:ubuntu-jammy-ros-humble-ros-base-latest
     steps:
       - name: Build and run tests
         uses: ros-tooling/action-ros-ci@v0.4
