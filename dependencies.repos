@@ -1,5 +1,10 @@
 repositories:
-  dependencies/sdformat_tools:
+  third-party/sdformat_tools:
     type: git
     url: https://github.com/gezp/sdformat_tools.git
     version: galactic
+
+  third-party/ydlidar_ros2_driver:
+    type: git
+    url: https://github.com/YDLIDAR/ydlidar_ros2_driver.git
+    version: humble
