@@ -24,12 +24,12 @@
 #include <mutex>
 #include <nav_msgs/msg/odometry.hpp>
 #include <rclcpp/rclcpp.hpp>
+#include <scorpio_base/scorpio_base_parameters.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <string>
 
 #include "scorpio_base/cereal_port.hpp"
 #include "scorpio_base/kalman_filter.hpp"
-#include <scorpio_base/scorpio_base_parameters.hpp>
 
 namespace scorpio_base
 {
