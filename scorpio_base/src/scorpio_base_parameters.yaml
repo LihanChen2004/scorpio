@@ -1,0 +1,63 @@
+scorpio_base:
+  base_frame_id:
+    type: string
+    default_value: "base_footprint"
+    description: "Frame ID for the robot base link"
+    validation:
+      not_empty<>: []
+
+  odom_frame_id:
+    type: string
+    default_value: "odom"
+    description: "Frame ID for the odometry reference frame"
+    validation:
+      not_empty<>: []
+
+  stm32_port:
+    type: string
+    default_value: "/dev/ttyS0"
+    description: "Serial port for STM32 communication"
+    validation:
+      not_empty<>: []
+
+  motor_port:
+    type: string
+    default_value: "/dev/ttyS3"
+    description: "Serial port for motor controller communication"
+    validation:
+      not_empty<>: []
+
+  stm32_baud:
+    type: int
+    default_value: 115200
+    description: "Baud rate for STM32 serial port"
+    validation:
+      gt<>: [0]
+      one_of<>: [[9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600]]
+
+  motor_baud:
+    type: int
+    default_value: 57600
+    description: "Baud rate for motor controller serial port"
+    validation:
+      gt<>: [0]
+      one_of<>: [[9600, 19200, 38400, 57600, 115200, 230400, 460800, 921600]]
+
+  hall_encoder:
+    type: bool
+    default_value: true
+    description: "Enable hall encoder-based odometry"
+
+  limited_speed:
+    type: double
+    default_value: 1.0
+    description: "Maximum allowed speed in m/s"
+    validation:
+      bounds<>: [0.0, 1.0]
+
+  wheelbase:
+    type: double
+    default_value: 0.315
+    description: "Distance between front and rear axles in meters"
+    validation:
+      gt<>: [0.0]

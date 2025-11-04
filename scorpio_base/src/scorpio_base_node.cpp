@@ -76,36 +76,19 @@ ScorpioBaseNode::ScorpioBaseNode(const rclcpp::NodeOptions & options)
   over_current_(false),
   vel_idx_(0)
 {
-  // Declare parameters
-  this->declare_parameter("base_frame_id", "base_footprint");
-  this->declare_parameter("odom_frame_id", "odom");
-  this->declare_parameter("stm32_port", "/dev/ttyS0");
-  this->declare_parameter("motor_port", "/dev/ttyS3");
-  this->declare_parameter("stm32_baud", 115200);
-  this->declare_parameter("motor_baud", 57600);
-  this->declare_parameter("hall_encoder", true);
-  this->declare_parameter("limited_speed", MAX_SPEED);
-  this->declare_parameter("wheelbase", 0.315);
-
-  // Get parameters
-  base_frame_id_ = this->get_parameter("base_frame_id").as_string();
-  odom_frame_id_ = this->get_parameter("odom_frame_id").as_string();
-  stm32_port_ = this->get_parameter("stm32_port").as_string();
-  motor_port_ = this->get_parameter("motor_port").as_string();
-  stm32_baud_ = this->get_parameter("stm32_baud").as_int();
-  motor_baud_ = this->get_parameter("motor_baud").as_int();
-  hall_encoder_ = this->get_parameter("hall_encoder").as_bool();
-  limited_speed_ = this->get_parameter("limited_speed").as_double();
-  wheelbase_ = this->get_parameter("wheelbase").as_double();
-
-  // Clamp speed limit
-  limited_speed_ = std::clamp(limited_speed_, 0.0, MAX_SPEED);
+  // Initialize parameter listener and get parameters
+  param_listener_ =
+    std::make_shared<scorpio_base::ParamListener>(this->get_node_parameters_interface());
+  params_ = param_listener_->get_params();
 
   RCLCPP_INFO(this->get_logger(), "Scorpio Base Node Initializing...");
-  RCLCPP_INFO(this->get_logger(), "  STM32 Port: %s @ %d", stm32_port_.c_str(), stm32_baud_);
-  RCLCPP_INFO(this->get_logger(), "  Motor Port: %s @ %d", motor_port_.c_str(), motor_baud_);
-  RCLCPP_INFO(this->get_logger(), "  Speed Limit: %.2f m/s", limited_speed_);
-  RCLCPP_INFO(this->get_logger(), "  Hall Encoder: %s", hall_encoder_ ? "enabled" : "disabled");
+  RCLCPP_INFO(
+    this->get_logger(), "  STM32 Port: %s @ %ld", params_.stm32_port.c_str(), params_.stm32_baud);
+  RCLCPP_INFO(
+    this->get_logger(), "  Motor Port: %s @ %ld", params_.motor_port.c_str(), params_.motor_baud);
+  RCLCPP_INFO(this->get_logger(), "  Speed Limit: %.2f m/s", params_.limited_speed);
+  RCLCPP_INFO(
+    this->get_logger(), "  Hall Encoder: %s", params_.hall_encoder ? "enabled" : "disabled");
 
   // Initialize arrays
   fb_time_.fill(0.0);
@@ -118,51 +101,33 @@ ScorpioBaseNode::ScorpioBaseNode(const rclcpp::NodeOptions & options)
   stm32_port_ptr_ = std::make_unique<CerealPort>();
   motor_port_ptr_ = std::make_unique<CerealPort>();
 
-  // Open serial ports with retry mechanism
-  constexpr int max_retries = 10;
-  constexpr int retry_delay_ms = 2000;
-
-  // Open STM32 port
+  // Open STM32 port with retry until success or shutdown
   RCLCPP_INFO(
-    this->get_logger(), "Opening STM32 port: %s @ %d...", stm32_port_.c_str(), stm32_baud_);
-  for (int retry = 0; retry < max_retries; ++retry) {
+    this->get_logger(), "Opening STM32 port: %s @ %ld...", params_.stm32_port.c_str(),
+    params_.stm32_baud);
+  while (rclcpp::ok()) {
     try {
-      stm32_port_ptr_->open(stm32_port_.c_str(), stm32_baud_);
+      stm32_port_ptr_->open(params_.stm32_port.c_str(), params_.stm32_baud);
       RCLCPP_INFO(this->get_logger(), "STM32 port opened successfully");
       break;
     } catch (const CerealException & e) {
-      if (retry == max_retries - 1) {
-        RCLCPP_FATAL(
-          this->get_logger(), "Failed to open STM32 port after %d retries: %s", max_retries,
-          e.what());
-        throw;
-      }
-      RCLCPP_WARN(
-        this->get_logger(), "Failed to open STM32 port (attempt %d/%d): %s. Retrying in %dms...",
-        retry + 1, max_retries, e.what(), retry_delay_ms);
-      std::this_thread::sleep_for(std::chrono::milliseconds(retry_delay_ms));
+      RCLCPP_WARN(this->get_logger(), "Failed to open STM32 port: %s. Retrying in 2s...", e.what());
+      rclcpp::sleep_for(std::chrono::seconds(2));
     }
   }
 
-  // Open motor port
+  // Open motor port with retry until success or shutdown
   RCLCPP_INFO(
-    this->get_logger(), "Opening motor port: %s @ %d...", motor_port_.c_str(), motor_baud_);
-  for (int retry = 0; retry < max_retries; ++retry) {
+    this->get_logger(), "Opening motor port: %s @ %ld...", params_.motor_port.c_str(),
+    params_.motor_baud);
+  while (rclcpp::ok()) {
     try {
-      motor_port_ptr_->open(motor_port_.c_str(), motor_baud_);
+      motor_port_ptr_->open(params_.motor_port.c_str(), params_.motor_baud);
       RCLCPP_INFO(this->get_logger(), "Motor port opened successfully");
       break;
     } catch (const CerealException & e) {
-      if (retry == max_retries - 1) {
-        RCLCPP_FATAL(
-          this->get_logger(), "Failed to open motor port after %d retries: %s", max_retries,
-          e.what());
-        throw;
-      }
-      RCLCPP_WARN(
-        this->get_logger(), "Failed to open motor port (attempt %d/%d): %s. Retrying in %dms...",
-        retry + 1, max_retries, e.what(), retry_delay_ms);
-      std::this_thread::sleep_for(std::chrono::milliseconds(retry_delay_ms));
+      RCLCPP_WARN(this->get_logger(), "Failed to open motor port: %s. Retrying in 2s...", e.what());
+      rclcpp::sleep_for(std::chrono::seconds(2));
     }
   }
 
@@ -176,7 +141,7 @@ ScorpioBaseNode::ScorpioBaseNode(const rclcpp::NodeOptions & options)
   // Create publishers
   imu_pub_ = this->create_publisher<sensor_msgs::msg::Imu>("imu_data", 10);
 
-  if (hall_encoder_) {
+  if (params_.hall_encoder) {
     odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("odom", 10);
     feedback_vel_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("feedback_velocity", 10);
   }
@@ -346,9 +311,15 @@ void ScorpioBaseNode::readWriteData(
 
 void ScorpioBaseNode::sendMotorSpeed(float speed)
 {
+  // Update parameters if changed
+  if (param_listener_->is_old(params_)) {
+    params_ = param_listener_->get_params();
+    RCLCPP_INFO(this->get_logger(), "Parameters updated");
+  }
+
   // Clamp speed
-  speed =
-    std::clamp(speed, static_cast<float>(-limited_speed_), static_cast<float>(limited_speed_));
+  speed = std::clamp(
+    speed, static_cast<float>(-params_.limited_speed), static_cast<float>(params_.limited_speed));
 
   int16_t motor_vel = static_cast<int16_t>(speed * MOTOR_VELOCITY_SCALE);
   readWriteData(0x002a, 0x0001, 0x002B, 0x0001, motor_vel);
@@ -625,7 +596,7 @@ void ScorpioBaseNode::parseStm32Packet(const uint8_t * buf, int len)
   imu_pub_->publish(imu_msg);
 
   // Parse encoder data if hall encoder is enabled
-  if (hall_encoder_) {
+  if (params_.hall_encoder) {
     int current_pwm = (buf[26] << 24) | (buf[27] << 16) | (buf[28] << 8) | buf[29];
 
     // First time initialization
@@ -698,8 +669,8 @@ void ScorpioBaseNode::publishOdometry(const rclcpp::Time & stamp)
   // Publish TF
   geometry_msgs::msg::TransformStamped odom_trans;
   odom_trans.header.stamp = stamp;
-  odom_trans.header.frame_id = odom_frame_id_;
-  odom_trans.child_frame_id = base_frame_id_;
+  odom_trans.header.frame_id = params_.odom_frame_id;
+  odom_trans.child_frame_id = params_.base_frame_id;
 
   odom_trans.transform.translation.x = odom_x_;
   odom_trans.transform.translation.y = odom_y_;
@@ -717,8 +688,8 @@ void ScorpioBaseNode::publishOdometry(const rclcpp::Time & stamp)
   // Publish Odometry message
   auto odom_msg = nav_msgs::msg::Odometry();
   odom_msg.header.stamp = stamp;
-  odom_msg.header.frame_id = odom_frame_id_;
-  odom_msg.child_frame_id = base_frame_id_;
+  odom_msg.header.frame_id = params_.odom_frame_id;
+  odom_msg.child_frame_id = params_.base_frame_id;
 
   odom_msg.pose.pose.position.x = odom_x_;
   odom_msg.pose.pose.position.y = odom_y_;

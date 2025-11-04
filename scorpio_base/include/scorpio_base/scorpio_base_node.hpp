@@ -29,6 +29,7 @@
 
 #include "scorpio_base/cereal_port.hpp"
 #include "scorpio_base/kalman_filter.hpp"
+#include <scorpio_base/scorpio_base_parameters.hpp>
 
 namespace scorpio_base
 {
@@ -69,16 +70,9 @@ private:
   void resetOdometry();
   void publishOdometry(const rclcpp::Time & stamp);
 
-  // Parameters
-  std::string base_frame_id_;
-  std::string odom_frame_id_;
-  std::string stm32_port_;
-  std::string motor_port_;
-  int stm32_baud_;
-  int motor_baud_;
-  bool hall_encoder_;
-  double limited_speed_;
-  double wheelbase_;
+  // Parameter management
+  std::shared_ptr<scorpio_base::ParamListener> param_listener_;
+  scorpio_base::Params params_;
 
   // Serial ports
   std::unique_ptr<CerealPort> stm32_port_ptr_;
