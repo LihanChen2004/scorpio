@@ -29,7 +29,7 @@
 		</joint>
 		<link name="base_link">
 			<inertial>
-				<pose>0.015 0 0.145 0 0 0</pose>
+				<pose>0.1725 0 0.145 0 0 0</pose>
 				<mass>5.0</mass>
 				<inertia>
 					<ixx>0.032212083333333336</ixx>
