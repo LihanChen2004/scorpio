@@ -13,8 +13,8 @@
   <model name='scorpio'>
     <pose>0 0 0.2 0 0 0</pose>
     <xmacro_block name="scorpio" />
-    <xmacro_block name="d435i" prefix="front_" parent="base_link" pose="0.15 0 0.23 0 0 0" />
-    <xmacro_block name="rplidar_a2" prefix="" parent="base_link" pose="-0.04 0.0 0.235 0 0 0" update_rate="20" samples="1875" visualize="false" />
+    <xmacro_block name="d435i" prefix="front_" parent="base_link" pose="${0.15+0.1575} 0 0.23 0 0 0" />
+    <xmacro_block name="rplidar_a2" prefix="" parent="base_link" pose="${-0.04+0.1575} 0.0 0.235 0 0 0" update_rate="20" samples="1875" visualize="false" />
 
     <plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher">
     </plugin>
