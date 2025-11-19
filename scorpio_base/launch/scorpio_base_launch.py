@@ -40,55 +40,55 @@ def generate_launch_description():
     colorized_output_envvar = SetEnvironmentVariable("RCUTILS_COLORIZED_OUTPUT", "1")
 
     # Declare launch arguments
-    base_frame_id_arg = DeclareLaunchArgument(
+    declare_base_frame_id_cmd = DeclareLaunchArgument(
         "base_frame_id",
         default_value="base_footprint",
         description="Base frame ID",
     )
 
-    odom_frame_id_arg = DeclareLaunchArgument(
+    declare_odom_frame_id_cmd = DeclareLaunchArgument(
         "odom_frame_id",
         default_value="odom",
         description="Odometry frame ID",
     )
 
-    stm32_port_arg = DeclareLaunchArgument(
+    declare_stm32_port_cmd = DeclareLaunchArgument(
         "stm32_port",
         default_value="/dev/ttyS0",
         description="STM32 serial port",
     )
 
-    motor_port_arg = DeclareLaunchArgument(
+    declare_motor_port_cmd = DeclareLaunchArgument(
         "motor_port",
         default_value="/dev/ttyS3",
         description="Motor controller serial port",
     )
 
-    stm32_baud_arg = DeclareLaunchArgument(
+    declare_stm32_baud_cmd = DeclareLaunchArgument(
         "stm32_baud",
         default_value="115200",
         description="STM32 baud rate",
     )
 
-    motor_baud_arg = DeclareLaunchArgument(
+    declare_motor_baud_cmd = DeclareLaunchArgument(
         "motor_baud",
         default_value="57600",
         description="Motor controller baud rate",
     )
 
-    hall_encoder_arg = DeclareLaunchArgument(
+    declare_hall_encoder_cmd = DeclareLaunchArgument(
         "hall_encoder",
         default_value="true",
         description="Enable hall encoder odometry",
     )
 
-    limited_speed_arg = DeclareLaunchArgument(
+    declare_limited_speed_cmd = DeclareLaunchArgument(
         "limited_speed",
         default_value="1.0",
         description="Maximum speed in m/s",
     )
 
-    wheelbase_arg = DeclareLaunchArgument(
+    declare_wheelbase_cmd = DeclareLaunchArgument(
         "wheelbase",
         default_value="0.315",
         description="Wheelbase in meters",
@@ -137,15 +137,15 @@ def generate_launch_description():
     ld.add_action(colorized_output_envvar)
 
     # Declare the launch options
-    ld.add_action(base_frame_id_arg)
-    ld.add_action(odom_frame_id_arg)
-    ld.add_action(stm32_port_arg)
-    ld.add_action(motor_port_arg)
-    ld.add_action(stm32_baud_arg)
-    ld.add_action(motor_baud_arg)
-    ld.add_action(hall_encoder_arg)
-    ld.add_action(limited_speed_arg)
-    ld.add_action(wheelbase_arg)
+    ld.add_action(declare_base_frame_id_cmd)
+    ld.add_action(declare_odom_frame_id_cmd)
+    ld.add_action(declare_stm32_port_cmd)
+    ld.add_action(declare_motor_port_cmd)
+    ld.add_action(declare_stm32_baud_cmd)
+    ld.add_action(declare_motor_baud_cmd)
+    ld.add_action(declare_hall_encoder_cmd)
+    ld.add_action(declare_limited_speed_cmd)
+    ld.add_action(declare_wheelbase_cmd)
 
     # Add the nodes
     ld.add_action(cmd_vel_to_ackermann_node)
