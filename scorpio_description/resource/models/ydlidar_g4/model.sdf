@@ -44,7 +44,7 @@
 		<link name="simple_ydlidar_g4">
 			<pose relative_to="simple_ydlidar_g4_joint">0 0 0 0 0 0</pose>
 			<inertial>
-				<pose>0 0 0.02 0 0 0</pose>
+				<pose>0 0 -0.025 0 0 0</pose>
 				<mass>0.005</mass>
 				<inertia>
 					<ixx>2.6666666666666664e-06</ixx>
@@ -56,6 +56,7 @@
 				</inertia>
 			</inertial>
 			<visual name="visual">
+				<pose>0 0 -0.025 0 0 0</pose>
 				<geometry>
 					<mesh>
 						<uri>model://ydlidar_g4/meshes/rplidar_a2.dae</uri>
@@ -63,7 +64,7 @@
 				</geometry>
 			</visual>
 			<collision name="collision">
-				<pose>0 0 0.02 0 0 0</pose>
+				<pose>0 0 -0.025 0 0 0</pose>
 				<geometry>
 					<cylinder>
 						<radius>0.04</radius>
@@ -73,7 +74,7 @@
 			</collision>
 			<sensor name="simple_ydlidar_g4" type="gpu_lidar">
 				<ignition_frame_id>simple_ydlidar_g4</ignition_frame_id>
-				<pose>0 0 0.03 0 0 0</pose>
+				<pose>0 0 0 0 0 0</pose>
 				<always_on>true</always_on>
 				<visualize>true</visualize>
 				<update_rate>10.0</update_rate>
@@ -100,3 +101,4 @@
 		</link>
 	</model>
 </sdf>
+

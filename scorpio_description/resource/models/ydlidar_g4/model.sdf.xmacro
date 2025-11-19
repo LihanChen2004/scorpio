@@ -10,19 +10,20 @@
     <link name="${prefix}ydlidar_g4">
       <pose relative_to="${prefix}ydlidar_g4_joint">0 0 0 0 0 0</pose>
       <inertial>
-        <pose>0 0 0.02 0 0 0</pose>
+        <pose>0 0 -0.025 0 0 0</pose>
         <xmacro_block name="inertia_cylinder" m="0.005" r="0.04" l="0.04" />
       </inertial>
       <visual name="visual">
+        <pose>0 0 -0.025 0 0 0</pose>
         <xmacro_block name="geometry_mesh" uri="model://ydlidar_g4/meshes/rplidar_a2.dae" />
       </visual>
       <collision name="collision">
-        <pose>0 0 0.02 0 0 0</pose>
+        <pose>0 0 -0.025 0 0 0</pose>
         <xmacro_block name="geometry_cylinder" r="0.04" l="0.04" />
       </collision>
       <sensor name="${prefix}ydlidar_g4" type="gpu_lidar">
         <ignition_frame_id>${prefix}ydlidar_g4</ignition_frame_id>
-        <pose>0 0 0.03 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <always_on>true</always_on>
         <visualize>${visualize}</visualize>
         <update_rate>${update_rate}</update_rate>

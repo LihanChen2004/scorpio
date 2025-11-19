@@ -66,6 +66,14 @@
 					</box>
 				</geometry>
 			</collision>
+		</link>
+		<joint name="base_to_imu_joint" type="fixed">
+			<pose relative_to="base_link">0.16 0.04 0.175 0 0 -3.141592653589793</pose>
+			<parent>base_link</parent>
+			<child>base_imu</child>
+		</joint>
+		<link name="base_imu">
+			<pose relative_to="base_to_imu">0 0 0 0 0 0</pose>
 			<sensor name="base_imu" type="imu">
 				<always_on>1</always_on>
 				<update_rate>200</update_rate>
@@ -357,3 +365,4 @@
 		</plugin>
 	</model>
 </sdf>
+
