@@ -107,7 +107,7 @@ vcs import src/scorpio < src/scorpio/dependencies.repos
 3. 下载 LivoxMid360 激光雷达模式文件：
 
     ```sh
-    wget https://raw.githubusercontent.com/RobotecAI/RGLGazeboPlugin/fortress/lidar_patterns/LivoxMid360.mat3x4f -O src/scorpio_description/resource/models/mid360/lidar_patterns/LivoxMid360.mat3x4f
+    wget https://raw.githubusercontent.com/RobotecAI/RGLGazeboPlugin/fortress/lidar_patterns/LivoxMid360.mat3x4f -O src/scorpio/scorpio_description/resource/models/mid360/lidar_patterns/LivoxMid360.mat3x4f
     ```
 
 ### 2.3 Build
