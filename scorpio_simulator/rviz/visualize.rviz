@@ -163,7 +163,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        rplidar_a2:
+        ydlidar_g4:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -227,7 +227,7 @@ Visualization Manager:
           Value: true
         rear_right_wheel:
           Value: true
-        rplidar_a2:
+        ydlidar_g4:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -268,7 +268,7 @@ Visualization Manager:
               {}
             rear_right_wheel:
               {}
-            rplidar_a2:
+            ydlidar_g4:
               {}
       Update Interval: 0
       Value: true
@@ -336,7 +336,7 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /rplidar_a2/scan
+        Value: /ydlidar_g4/scan
       Use Fixed Frame: true
       Use rainbow: true
       Value: true

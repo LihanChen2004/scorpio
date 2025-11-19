@@ -1,12 +1,12 @@
 Panels:
   - Class: rviz_common/Displays
-    Help Height: 78
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
         - /Global Options1
       Splitter Ratio: 0.5029411911964417
-    Tree Height: 667
+    Tree Height: 745
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -22,7 +22,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
 Visualization Manager:
   Class: ""
   Displays:
@@ -165,7 +165,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        rplidar_a2:
+        ydlidar_g4:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -231,7 +231,7 @@ Visualization Manager:
           Value: true
         rear_right_wheel:
           Value: true
-        rplidar_a2:
+        ydlidar_g4:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -274,9 +274,43 @@ Visualization Manager:
               {}
             rear_right_wheel:
               {}
-            rplidar_a2:
+            ydlidar_g4:
               {}
       Update Interval: 0
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz_default_plugins/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 1020
+      Min Color: 0; 0; 0
+      Min Intensity: 1008
+      Name: LaserScan
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Points
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /ydlidar/scan
+      Use Fixed Frame: true
+      Use rainbow: true
       Value: true
   Enabled: true
   Global Options:
@@ -299,25 +333,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.3330090045928955
+      Distance: 3.535749912261963
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.014911055564880371
-        Y: 0.012240409851074219
-        Z: 0.08758461475372314
+        X: 0.13112300634384155
+        Y: -0.02125238999724388
+        Z: -0.012711875140666962
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.44857868552207947
+      Pitch: 0.44357872009277344
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.7142633199691772
+      Yaw: 0.6742601990699768
     Saved: ~
 Window Geometry:
   Displays:
