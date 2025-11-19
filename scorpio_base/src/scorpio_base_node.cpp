@@ -101,6 +101,14 @@ ScorpioBaseNode::ScorpioBaseNode(const rclcpp::NodeOptions & options)
   stm32_port_ptr_ = std::make_unique<CerealPort>();
   motor_port_ptr_ = std::make_unique<CerealPort>();
 
+  // Initialize odometry
+  resetOdometry();
+  last_packet_time_ = this->now();
+  last_cmd_time_ = this->now();
+
+  // Create TF broadcaster
+  tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(this);
+
   // Open STM32 port with retry until success or shutdown
   RCLCPP_INFO(
     this->get_logger(), "Opening STM32 port: %s @ %ld...", params_.stm32_port.c_str(),
@@ -131,13 +139,6 @@ ScorpioBaseNode::ScorpioBaseNode(const rclcpp::NodeOptions & options)
     }
   }
 
-  // Start read streams
-  stm32_port_ptr_->startReadStream(
-    [this](char * data, int len) { this->stm32DataCallback(data, len); });
-
-  motor_port_ptr_->startReadStream(
-    [this](char * data, int len) { this->motorDataCallback(data, len); });
-
   // Create publishers
   imu_pub_ = this->create_publisher<sensor_msgs::msg::Imu>("imu_data", 10);
 
@@ -146,20 +147,12 @@ ScorpioBaseNode::ScorpioBaseNode(const rclcpp::NodeOptions & options)
     feedback_vel_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("feedback_velocity", 10);
   }
 
-  // Create TF broadcaster
-  tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(this);
-
   // Create timers
   check_timer_ =
     this->create_wall_timer(std::chrono::seconds(1), [this]() { checkSerialTimeout(this->now()); });
 
   motor_timer_ =
     this->create_wall_timer(std::chrono::milliseconds(100), [this]() { motorSendTimer(); });
-
-  // Initialize odometry
-  resetOdometry();
-  last_packet_time_ = this->now();
-  last_cmd_time_ = this->now();
 
   // Send initial config after a short delay
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -170,6 +163,11 @@ ScorpioBaseNode::ScorpioBaseNode(const rclcpp::NodeOptions & options)
     "ackermann_cmd", 10, [this](const ackermann_msgs::msg::AckermannDriveStamped::SharedPtr msg) {
       ackermannCmdCallback(msg);
     });
+
+  stm32_port_ptr_->startReadStream(
+    [this](char * data, int len) { this->stm32DataCallback(data, len); });
+  motor_port_ptr_->startReadStream(
+    [this](char * data, int len) { this->motorDataCallback(data, len); });
 
   RCLCPP_INFO(this->get_logger(), "Scorpio Base Node Initialized");
 }
@@ -545,7 +543,7 @@ void ScorpioBaseNode::parseStm32Packet(const uint8_t * buf, int len)
   // Parse IMU data
   auto imu_msg = sensor_msgs::msg::Imu();
   imu_msg.header.stamp = this->now();
-  imu_msg.header.frame_id = "IMU_link";
+  imu_msg.header.frame_id = "base_imu";
 
   // Accelerometer (m/s^2)
   float accel_x = static_cast<int16_t>((buf[1] << 8) | buf[0]) / 32768.0f * 16.0f * 9.8f;
