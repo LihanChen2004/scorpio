@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <!-- xmacro_define_block: ydlidar_g4 -->
+  <xmacro_define_block name="ydlidar_g4" params="prefix parent pose update_rate samples visualize">
+    <joint name="${prefix}ydlidar_g4_joint" type="fixed">
+      <pose relative_to="${parent}">${pose}</pose>
+      <parent>${parent}</parent>
+      <child>${prefix}ydlidar_g4</child>
+    </joint>
+    <link name="${prefix}ydlidar_g4">
+      <pose relative_to="${prefix}ydlidar_g4_joint">0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0.02 0 0 0</pose>
+        <xmacro_block name="inertia_cylinder" m="0.005" r="0.04" l="0.04" />
+      </inertial>
+      <visual name="visual">
+        <xmacro_block name="geometry_mesh" uri="model://ydlidar_g4/meshes/rplidar_a2.dae" />
+      </visual>
+      <collision name="collision">
+        <pose>0 0 0.02 0 0 0</pose>
+        <xmacro_block name="geometry_cylinder" r="0.04" l="0.04" />
+      </collision>
+      <sensor name="${prefix}ydlidar_g4" type="gpu_lidar">
+        <ignition_frame_id>${prefix}ydlidar_g4</ignition_frame_id>
+        <pose>0 0 0.03 0 0 0</pose>
+        <always_on>true</always_on>
+        <visualize>${visualize}</visualize>
+        <update_rate>${update_rate}</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>${samples}</samples>
+              <resolution>1.0</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>6.28000020980835</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.15</min>
+            <max>12.0</max>
+          </range>
+        </ray>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </sensor>
+    </link>
+  </xmacro_define_block>
+  <!-- rplidar a2 -->
+  <model name='simple_ydlidar_g4'>
+    <pose>0 0 0.2 0 0 0</pose>
+    <link name="base_link">
+      <inertial>
+        <xmacro_block name="inertia_box" m="0.4" x="0.4" y="0.4" z="0.4" />
+      </inertial>
+      <visual name="visual">
+        <xmacro_block name="geometry_box" x="0.4" y="0.4" z="0.4" />
+      </visual>
+      <collision name="collision">
+        <xmacro_block name="geometry_box" x="0.4" y="0.4" z="0.4" />
+      </collision>
+    </link>
+    <!-- update_rate(10-15),samples(400) -->
+    <xmacro_block name="ydlidar_g4" prefix="simple_" parent="base_link" pose="0 0 0.2 0 0 0" update_rate="10" samples="400" visualize="true" />
+  </model>
+</sdf>
