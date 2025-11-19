@@ -69,37 +69,49 @@
 				<update_rate>200</update_rate>
 				<visualize>true</visualize>
 			</sensor>
-			<sensor name="simple_mid360_lidar" type="gpu_lidar">
-				<ignition_frame_id>simple_mid360</ignition_frame_id>
-				<pose>0 0 0.03 0 0 0</pose>
-				<always_on>true</always_on>
-				<visualize>true</visualize>
-				<update_rate>10.0</update_rate>
-				<ray>
-					<scan>
-						<horizontal>
-							<samples>1500.0</samples>
-							<resolution>1.0</resolution>
-							<min_angle>0</min_angle>
-							<max_angle>6.2831852</max_angle>
-						</horizontal>
-						<vertical>
-							<samples>32</samples>
-							<min_angle>-0.12217304764</min_angle>
-							<max_angle>0.90757121104</max_angle>
-						</vertical>
-					</scan>
+			<sensor name="simple_mid360_lidar" type="custom">
+				<plugin filename="RGLServerPluginInstance" name="rgl::RGLServerPluginInstance">
 					<range>
 						<min>0.1</min>
-						<max>40.0</max>
+						<max>40</max>
 					</range>
-				</ray>
-				<noise>
-					<type>gaussian</type>
-					<mean>0.0</mean>
-					<stddev>0.01</stddev>
-				</noise>
+					<update_rate>10.0</update_rate>
+					<topic>rgl_lidar</topic>
+					<frame>RGLLidar</frame>
+					<pattern_preset>Livox Mid360</pattern_preset>
+				</plugin>
 			</sensor>
+			<!-- <sensor name="simple_mid360_lidar" type="gpu_lidar">
+        <ignition_frame_id>simple_mid360</ignition_frame_id>
+        <pose>0 0 0.03 0 0 0</pose>
+        <always_on>true</always_on>
+        <visualize>true</visualize>
+        <update_rate>10.0</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>1500.0</samples>
+              <resolution>1.0</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>6.2831852</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>32</samples>
+              <min_angle>-0.12217304764</min_angle>
+              <max_angle>0.90757121104</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.1</min>
+            <max>40.0</max>
+          </range>
+        </ray>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </sensor> -->
 		</link>
 	</model>
 </sdf>

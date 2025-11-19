@@ -29,7 +29,20 @@
         <visualize>true</visualize>
       </sensor>
 
-      <sensor name="${prefix}mid360_lidar" type="gpu_lidar">
+      <sensor name="${prefix}mid360_lidar" type="custom">
+        <plugin filename="RGLServerPluginInstance" name="rgl::RGLServerPluginInstance">
+          <range>
+              <min>0.1</min>
+              <max>40</max>
+          </range>
+          <update_rate>${update_rate}</update_rate>
+          <topic>rgl_lidar</topic>
+          <frame>RGLLidar</frame>
+          <pattern_preset>Livox Mid360</pattern_preset>
+        </plugin>
+      </sensor>
+
+      <!-- <sensor name="${prefix}mid360_lidar" type="gpu_lidar">
         <ignition_frame_id>${prefix}mid360</ignition_frame_id>
         <pose>0 0 0.03 0 0 0</pose>
         <always_on>true</always_on>
@@ -59,7 +72,7 @@
           <mean>0.0</mean>
           <stddev>0.01</stddev>
         </noise>
-      </sensor>
+      </sensor> -->
     </link>
   </xmacro_define_block>
 

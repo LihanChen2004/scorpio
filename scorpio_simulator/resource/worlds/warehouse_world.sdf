@@ -26,6 +26,10 @@
     <plugin filename="ignition-gazebo-contact-system" name="ignition::gazebo::systems::Contact">
     </plugin>
 
+    <plugin name='rgl::RGLServerPluginManager' filename='RGLServerPluginManager'>
+      <do_ignore_entities_in_lidar_link>true</do_ignore_entities_in_lidar_link>
+    </plugin>
+
     <gui fullscreen="0">
       <!-- 3D scene -->
       <plugin filename="GzScene3D" name="3D View">

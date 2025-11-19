@@ -62,14 +62,16 @@ scorpio 是非官方创建的 [NXROBO-scorpio](https://github.com/NXROBO/scorpio
 
 ### 2.2 Create Workspace
 
+### 2.2.1 Clone
+
 ```sh
 pip3 install vcs2l
 pip3 install xmacro
 ```
 
 ```sh
-mkdir -p ~/ros_ws
-cd ~/ros_ws
+mkdir -p ~/scorpio_ws
+cd ~/scorpio_ws
 ```
 
 ```sh
@@ -79,6 +81,34 @@ git clone https://github.com/LihanChen2004/scorpio.git src/scorpio
 ```sh
 vcs import src/scorpio < src/scorpio/dependencies.repos
 ```
+
+## 2.2.2 安装 RGLGazeboPlugin（GPU Lidar 仿真插件）
+
+1. 下载插件压缩包：
+
+    ```sh
+    wget https://github.com/RobotecAI/RGLGazeboPlugin/releases/download/v0.2.0-fortress/RGLGazeboPlugin_ubuntu22.zip
+    ```
+
+2. 解压并复制插件文件：
+
+    ```sh
+    unzip RGLGazeboPlugin_ubuntu22.zip -d RGLGazeboPlugin_ubuntu22
+    cd RGLGazeboPlugin_ubuntu22
+    sudo cp RGLServerPlugin/libRobotecGPULidar.so /usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/
+    sudo cp RGLServerPlugin/libRGLServerPluginInstance.so /usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/
+    sudo cp RGLServerPlugin/libRGLServerPluginManager.so /usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/
+    sudo cp RGLVisualize/libRGLVisualize.so /usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/
+
+    cd ..
+    rm -rf RGLGazeboPlugin_ubuntu22.zip RGLGazeboPlugin_ubuntu22
+    ```
+
+3. 下载 LivoxMid360 激光雷达模式文件：
+
+    ```sh
+    wget https://raw.githubusercontent.com/RobotecAI/RGLGazeboPlugin/fortress/lidar_patterns/LivoxMid360.mat3x4f -O src/scorpio_description/resource/models/mid360/lidar_patterns/LivoxMid360.mat3x4f
+    ```
 
 ### 2.3 Build
 
