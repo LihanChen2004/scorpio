@@ -22,27 +22,9 @@
 				</inertia>
 			</inertial>
 		</link>
-		<joint name="base_to_ackerman_base" type="fixed">
-			<pose>-0.1575 0 0 0 0 0</pose>
+		<joint name="base_to_chassis" type="fixed">
+			<pose>0 0 0.04 0 0 0</pose>
 			<parent>base_footprint</parent>
-			<child>ackerman_base</child>
-		</joint>
-		<link name="ackerman_base">
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
-		</link>
-		<joint name="ackerman_base_to_base_link" type="fixed">
-			<pose relative_to="ackerman_base">0.1575 0 0 0 0 0</pose>
-			<parent>ackerman_base</parent>
 			<child>base_link</child>
 		</joint>
 		<link name="base_link">
@@ -59,7 +41,7 @@
 				</inertia>
 			</inertial>
 			<visual name="base_visual">
-				<pose>0 0 0 0 0 0</pose>
+				<pose>0.1575 0 0 0 0 0</pose>
 				<geometry>
 					<mesh>
 						<uri>model://scorpio/meshes/scorpio.stl</uri>
@@ -77,39 +59,20 @@
 				</material>
 			</visual>
 			<collision name="base_collision">
-				<pose>0.015 0 0.145 0 0 0</pose>
+				<pose>0.1725 0 0.145 0 0 0</pose>
 				<geometry>
 					<box>
 						<size>0.467 0.203 0.19</size>
 					</box>
 				</geometry>
 			</collision>
-		</link>
-		<joint name="base_to_imu_joint" type="fixed">
-			<pose relative_to="base_link">0.16 0.04 0.175 0 0 -3.141592653589793</pose>
-			<parent>base_link</parent>
-			<child>base_imu</child>
-		</joint>
-		<link name="base_imu">
-			<pose relative_to="base_to_imu_joint">0 0 0 0 0 0</pose>
-			<inertial>
-				<mass>1e-09</mass>
-				<inertia>
-					<ixx>4.000000000000001e-28</ixx>
-					<ixy>0</ixy>
-					<ixz>0</ixz>
-					<iyy>4.000000000000001e-28</iyy>
-					<iyz>0</iyz>
-					<izz>4.000000000000001e-28</izz>
-				</inertia>
-			</inertial>
 			<sensor name="base_imu" type="imu">
 				<always_on>1</always_on>
 				<update_rate>200</update_rate>
 			</sensor>
 		</link>
 		<joint name="rear_left_wheel_joint" type="revolute">
-			<pose relative_to="base_link">-0.1575 0.0928 0.0525 0 0 0</pose>
+			<pose relative_to="base_link">0.0 0.0928 0.0525 0 0 0</pose>
 			<parent>base_link</parent>
 			<child>rear_left_wheel</child>
 			<axis>
@@ -160,7 +123,7 @@
 			</collision>
 		</link>
 		<joint name="rear_right_wheel_joint" type="revolute">
-			<pose relative_to="base_link">-0.1575 -0.0928 0.0525 0 0 0</pose>
+			<pose relative_to="base_link">0.0 -0.0928 0.0525 0 0 0</pose>
 			<parent>base_link</parent>
 			<child>rear_right_wheel</child>
 			<axis>
@@ -211,7 +174,7 @@
 			</collision>
 		</link>
 		<joint name="front_left_steering_joint" type="revolute">
-			<pose relative_to="base_link">0.1575 0.0928 0.0525 0 0 0</pose>
+			<pose relative_to="base_link">0.315 0.0928 0.0525 0 0 0</pose>
 			<parent>base_link</parent>
 			<child>front_left_steering_link</child>
 			<axis>
@@ -291,7 +254,7 @@
 			</collision>
 		</link>
 		<joint name="front_right_steering_joint" type="revolute">
-			<pose relative_to="base_link">0.1575 -0.0928 0.0525 0 0 0</pose>
+			<pose relative_to="base_link">0.315 -0.0928 0.0525 0 0 0</pose>
 			<parent>base_link</parent>
 			<child>front_right_steering_link</child>
 			<axis>
