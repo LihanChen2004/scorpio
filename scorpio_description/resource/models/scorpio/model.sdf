@@ -91,7 +91,18 @@
 			<child>base_imu</child>
 		</joint>
 		<link name="base_imu">
-			<pose relative_to="base_to_imu">0 0 0 0 0 0</pose>
+			<pose relative_to="base_to_imu_joint">0 0 0 0 0 0</pose>
+			<inertial>
+				<mass>1e-09</mass>
+				<inertia>
+					<ixx>4.000000000000001e-28</ixx>
+					<ixy>0</ixy>
+					<ixz>0</ixz>
+					<iyy>4.000000000000001e-28</iyy>
+					<iyz>0</iyz>
+					<izz>4.000000000000001e-28</izz>
+				</inertia>
+			</inertial>
 			<sensor name="base_imu" type="imu">
 				<always_on>1</always_on>
 				<update_rate>200</update_rate>
@@ -383,3 +394,4 @@
 		</plugin>
 	</model>
 </sdf>
+

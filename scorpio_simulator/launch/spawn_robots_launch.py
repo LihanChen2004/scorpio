@@ -34,7 +34,7 @@ def generate_launch_description():
         scorpio_description_dir,
         "resource",
         "xmacro",
-        "model.sdf.xmacro",
+        "scorpio.sdf.xmacro",
     )
 
     ros2_control_urdf_file = os.path.join(

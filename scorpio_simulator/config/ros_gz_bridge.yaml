@@ -17,8 +17,8 @@
   gz_type_name: "ignition.msgs.Pose_V"
   direction: "GZ_TO_ROS"
 
-- ros_topic_name: "/base_imu/imu"
-  gz_topic_name: "/world/default/model/scorpio/link/base_link/sensor/base_imu/imu"
+- ros_topic_name: "/base_imu"
+  gz_topic_name: "/world/default/model/scorpio/link/base_imu/sensor/base_imu/imu"
   ros_type_name: "sensor_msgs/msg/Imu"
   gz_type_name: "ignition.msgs.IMU"
   direction: "GZ_TO_ROS"
@@ -95,8 +95,8 @@
 #   gz_type_name: "ignition.msgs.IMU"
 #   direction: "GZ_TO_ROS"
 
-- ros_topic_name: "/rplidar_a2/scan"
-  gz_topic_name: "/world/default/model/scorpio/link/rplidar_a2/sensor/rplidar_a2/scan"
+- ros_topic_name: "/ydlidar/scan"
+  gz_topic_name: "/world/default/model/scorpio/link/ydlidar_g4/sensor/ydlidar_g4/scan"
   ros_type_name: "sensor_msgs/msg/LaserScan"
   gz_type_name: "ignition.msgs.LaserScan"
   direction: "GZ_TO_ROS"

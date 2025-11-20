@@ -37,7 +37,7 @@ amcl:
     z_max: 0.05
     z_rand: 0.5
     z_short: 0.05
-    scan_topic: /rplidar_a2/scan
+    scan_topic: /ydlidar/scan
 
 bt_navigator:
   ros__parameters:
@@ -216,7 +216,7 @@ global_costmap:
         enabled: True
         observation_sources: scan
         scan:
-          topic: /rplidar_a2/scan
+          topic: /ydlidar/scan
           max_obstacle_height: 2.0
           clearing: True
           marking: True
