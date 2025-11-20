@@ -208,7 +208,7 @@ global_costmap:
       use_sim_time: True
       robot_radius: 0.22
       resolution: 0.05
-      footprint: "[[0.23, 0.1], [0.23, -0.1], [-0.23, -0.1], [-0.23, 0.1]]"
+      footprint: "[[0.46, 0.1], [0.46, -0.1], [0, -0.1], [0, 0.1]]"
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       obstacle_layer:
