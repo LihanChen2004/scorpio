@@ -16,19 +16,15 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import (
-    DeclareLaunchArgument,
-    IncludeLaunchDescription,
-)
-from launch.conditions import IfCondition
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
-    # Get the launch directory
-    bringup_dir = get_package_share_directory("scorpio_nav2_bringup")
-    launch_dir = os.path.join(bringup_dir, "launch")
+    # Getting directories and launch-files
+    bringup_dir = get_package_share_directory("scorpio_bringup")
+    scorpio_nav2_bringup = get_package_share_directory("scorpio_nav2_bringup")
 
     # Create the launch configuration variables
     slam = LaunchConfiguration("slam")
@@ -68,13 +64,13 @@ def generate_launch_description():
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
         "use_sim_time",
-        default_value="true",
+        default_value="false",
         description="Use simulation (Gazebo) clock if true",
     )
 
     declare_params_file_cmd = DeclareLaunchArgument(
         "params_file",
-        default_value=os.path.join(bringup_dir, "params", "nav2_params.yaml"),
+        default_value=os.path.join(bringup_dir, "params", "scorpio_reality.yaml"),
         description="Full path to the ROS2 parameters file to use for all launched nodes",
     )
 
@@ -98,7 +94,7 @@ def generate_launch_description():
 
     declare_rviz_config_file_cmd = DeclareLaunchArgument(
         "rviz_config_file",
-        default_value=os.path.join(bringup_dir, "rviz", "nav2_default_view.rviz"),
+        default_value=os.path.join(bringup_dir, "rviz", "default_view.rviz"),
         description="Full path to the RVIZ config file to use",
     )
 
@@ -108,26 +104,23 @@ def generate_launch_description():
 
     declare_world_cmd = DeclareLaunchArgument(
         "world",
-        # TODO(orduno) Switch back once ROS argument passing has been fixed upstream
-        #              https://github.com/ROBOTIS-GIT/turtlebot3_simulations/issues/91
-        # default_value=os.path.join(get_package_share_directory('turtlebot3_gazebo'),
-        # worlds/turtlebot3_worlds/waffle.model')
         default_value=os.path.join(bringup_dir, "worlds", "world_only.model"),
         description="Full path to world model file to load",
     )
 
-    rviz_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(launch_dir, "rviz_launch.py")),
-        condition=IfCondition(use_rviz),
+    bringup_hardware_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(bringup_dir, "launch", "bringup_hardware_launch.py")
+        ),
         launch_arguments={
-            "namespace": namespace,
-            "use_namespace": use_namespace,
-            "rviz_config_file": rviz_config_file,
+            "params_file": params_file,
         }.items(),
     )
 
-    bringup_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(launch_dir, "bringup_launch.py")),
+    bringup_navigation2_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(scorpio_nav2_bringup, "launch", "scorpio_reality_launch.py")
+        ),
         launch_arguments={
             "namespace": namespace,
             "use_namespace": use_namespace,
@@ -138,10 +131,11 @@ def generate_launch_description():
             "autostart": autostart,
             "use_composition": use_composition,
             "use_respawn": use_respawn,
+            "use_rviz": use_rviz,
+            "rviz_config_file": rviz_config_file,
         }.items(),
     )
 
-    # Create the launch description and populate
     ld = LaunchDescription()
 
     # Declare the launch options
@@ -159,8 +153,8 @@ def generate_launch_description():
     ld.add_action(declare_world_cmd)
     ld.add_action(declare_use_respawn_cmd)
 
-    # Add the actions to launch all of the navigation nodes
-    ld.add_action(rviz_cmd)
-    ld.add_action(bringup_cmd)
+    # Running Map Saver Server
+    ld.add_action(bringup_hardware_cmd)
+    ld.add_action(bringup_navigation2_cmd)
 
     return ld

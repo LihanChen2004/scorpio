@@ -32,7 +32,7 @@ def generate_launch_description():
     # Create the launch configuration variables
     namespace = LaunchConfiguration("namespace")
     use_namespace = LaunchConfiguration("use_namespace")
-    rviz_config_file = LaunchConfiguration("rviz_config")
+    rviz_config_file = LaunchConfiguration("rviz_config_file")
 
     # Declare the launch arguments
     declare_namespace_cmd = DeclareLaunchArgument(
@@ -51,7 +51,7 @@ def generate_launch_description():
     )
 
     declare_rviz_config_file_cmd = DeclareLaunchArgument(
-        "rviz_config",
+        "rviz_config_file",
         default_value=os.path.join(bringup_dir, "rviz", "nav2_default_view.rviz"),
         description="Full path to the RVIZ config file to use",
     )

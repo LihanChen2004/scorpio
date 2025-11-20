@@ -25,16 +25,16 @@ from nav2_common.launch import RewrittenYaml
 
 
 def generate_launch_description():
-    # Input parameters declaration
+    # Get the launch directory
+    bringup_dir = get_package_share_directory("scorpio_bringup")
+    scorpio_description = get_package_share_directory("scorpio_description")
+    scorpio_base = get_package_share_directory("scorpio_base")
+
+    # Create the launch configuration variables
     namespace = LaunchConfiguration("namespace")
     params_file = LaunchConfiguration("params_file")
     use_respawn = LaunchConfiguration("use_respawn")
     log_level = LaunchConfiguration("log_level")
-
-    # Getting directories and launch-files
-    bringup_dir = get_package_share_directory("scorpio_bringup")
-    scorpio_description = get_package_share_directory("scorpio_description")
-    scorpio_base = get_package_share_directory("scorpio_base")
 
     configured_params = ParameterFile(
         RewrittenYaml(
@@ -53,7 +53,7 @@ def generate_launch_description():
 
     declare_params_file_cmd = DeclareLaunchArgument(
         "params_file",
-        default_value=os.path.join(bringup_dir, "params", "hardware.yaml"),
+        default_value=os.path.join(bringup_dir, "params", "scorpio_reality.yaml"),
         description="Full path to the ROS2 parameters file to use for all launched driver nodes",
     )
 
@@ -76,7 +76,7 @@ def generate_launch_description():
     )
 
     declare_log_level_cmd = DeclareLaunchArgument(
-        "log_level", default_value="info", description="log level"
+        "log_level", default_value="error", description="log level"
     )
 
     bringup_robot_description_cmd = IncludeLaunchDescription(
@@ -87,10 +87,11 @@ def generate_launch_description():
             "namespace": namespace,
             "use_sim_time": "False",
             "robot_name": "scorpio",
+            "visualize_robot_desc": "False",
         }.items(),
     )
 
-    bringup_scorpio_base = IncludeLaunchDescription(
+    bringup_scorpio_base_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(scorpio_base, "launch", "scorpio_base_launch.py")
         ),
@@ -134,7 +135,7 @@ def generate_launch_description():
 
     # Running Map Saver Server
     ld.add_action(bringup_robot_description_cmd)
-    ld.add_action(bringup_scorpio_base)
+    ld.add_action(bringup_scorpio_base_cmd)
     ld.add_action(start_realsense_camera_node)
     ld.add_action(start_ydlidar_driver_node)
 

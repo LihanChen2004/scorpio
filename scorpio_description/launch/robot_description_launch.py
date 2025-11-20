@@ -40,8 +40,7 @@ def launch_setup(context: LaunchContext) -> list:
     namespace = LaunchConfiguration("namespace")
     use_sim_time = LaunchConfiguration("use_sim_time")
     params_file = LaunchConfiguration("params_file")
-    rviz_config_file = LaunchConfiguration("rviz_config_file")
-    use_rviz = LaunchConfiguration("use_rviz")
+    visualize_robot_desc = LaunchConfiguration("visualize_robot_desc")
     use_respawn = LaunchConfiguration("use_respawn")
     log_level = LaunchConfiguration("log_level")
 
@@ -102,10 +101,17 @@ def launch_setup(context: LaunchContext) -> list:
                 arguments=["--ros-args", "--log-level", log_level],
             ),
             Node(
-                condition=IfCondition(use_rviz),
+                condition=IfCondition(visualize_robot_desc),
                 package="rviz2",
                 executable="rviz2",
-                arguments=["-d", rviz_config_file],
+                arguments=[
+                    "-d",
+                    os.path.join(
+                        get_package_share_directory("scorpio_description"),
+                        "rviz",
+                        "visualize_robot.rviz",
+                    ),
+                ],
                 output="screen",
             ),
         ]
@@ -157,14 +163,10 @@ def generate_launch_description():
         description="Full path to the ROS2 parameters file to use for all launched nodes",
     )
 
-    declare_rviz_config_file_cmd = DeclareLaunchArgument(
-        "rviz_config_file",
-        default_value=os.path.join(bringup_dir, "rviz", "visualize_robot.rviz"),
-        description="Full path to the RViz config file to use",
-    )
-
-    declare_use_rviz_cmd = DeclareLaunchArgument(
-        "use_rviz", default_value="True", description="Whether to start RViz"
+    declare_visualize_robot_desc_cmd = DeclareLaunchArgument(
+        "visualize_robot_desc",
+        default_value="True",
+        description="Whether to start RViz",
     )
 
     declare_use_respawn_cmd = DeclareLaunchArgument(
@@ -186,8 +188,7 @@ def generate_launch_description():
     ld.add_action(declare_robot_name_cmd)
     ld.add_action(declare_robot_xmacro_file_cmd)
     ld.add_action(declare_params_file_cmd)
-    ld.add_action(declare_rviz_config_file_cmd)
-    ld.add_action(declare_use_rviz_cmd)
+    ld.add_action(declare_visualize_robot_desc_cmd)
     ld.add_action(declare_use_respawn_cmd)
     ld.add_action(declare_log_level_cmd)
 
