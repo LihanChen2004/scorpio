@@ -102,7 +102,7 @@ def generate_launch_description():
         output="screen",
         parameters=[
             {
-                "frame_id": odom_frame_id,
+                "frame_id": base_frame_id,
                 "wheelbase": wheelbase,
             }
         ],

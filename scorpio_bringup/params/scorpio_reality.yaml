@@ -209,7 +209,7 @@ local_costmap:
       width: 5
       height: 5
       resolution: 0.05
-      footprint: "[[0.23, 0.1], [0.23, -0.1], [-0.23, -0.1], [-0.23, 0.1]]"
+      footprint: "[[0.3875, 0.1], [0.3875, -0.1], [-0.0725, -0.1], [-0.0725, 0.1]]"
       plugins: ["voxel_layer", "inflation_layer"]
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
@@ -250,7 +250,7 @@ global_costmap:
       use_sim_time: True
       robot_radius: 0.22
       resolution: 0.05
-      footprint: "[[0.46, 0.1], [0.46, -0.1], [0, -0.1], [0, 0.1]]"
+      footprint: "[[0.3875, 0.1], [0.3875, -0.1], [-0.0725, -0.1], [-0.0725, 0.1]]"
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       obstacle_layer:

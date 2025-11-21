@@ -23,7 +23,7 @@ CmdVelToAckermannNode::CmdVelToAckermannNode(const rclcpp::NodeOptions & options
 : Node("cmd_vel_to_ackermann", options)
 {
   // Declare parameters
-  this->declare_parameter("frame_id", "odom");
+  this->declare_parameter("frame_id", "base_footprint");
   this->declare_parameter("wheelbase", 0.315);
 
   // Get parameters
