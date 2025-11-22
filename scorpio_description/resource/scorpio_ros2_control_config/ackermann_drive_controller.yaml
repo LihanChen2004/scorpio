@@ -14,7 +14,7 @@ ackermann_steering_controller:
     front_wheels_radius: 0.054
     rear_wheels_radius: 0.054
     front_steering: true
-    reference_timeout: 2.0
+    reference_timeout: 9999.0
     rear_wheels_names: ['rear_right_wheel_joint', 'rear_left_wheel_joint']
     front_wheels_names: ['front_right_steering_joint', 'front_left_steering_joint']
     use_stamped_vel: false
