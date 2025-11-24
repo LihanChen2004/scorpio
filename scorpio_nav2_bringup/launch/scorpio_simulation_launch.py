@@ -22,7 +22,7 @@ from launch.actions import (
 )
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, TextSubstitution
 
 
 def generate_launch_description():
@@ -32,6 +32,7 @@ def generate_launch_description():
 
     # Create the launch configuration variables
     slam = LaunchConfiguration("slam")
+    world = LaunchConfiguration("world")
     namespace = LaunchConfiguration("namespace")
     use_namespace = LaunchConfiguration("use_namespace")
     map_yaml_file = LaunchConfiguration("map")
@@ -62,7 +63,11 @@ def generate_launch_description():
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
         "map",
-        default_value=os.path.join(bringup_dir, "maps", "warehouse.yaml"),
+        default_value=[
+            TextSubstitution(text=os.path.join(bringup_dir, "maps", "")),
+            world,
+            TextSubstitution(text=".yaml"),
+        ],
         description="Full path to map file to load",
     )
 
@@ -108,8 +113,8 @@ def generate_launch_description():
 
     declare_world_cmd = DeclareLaunchArgument(
         "world",
-        default_value=os.path.join(bringup_dir, "worlds", "world_only.model"),
-        description="Full path to world model file to load",
+        default_value="turtlebot3_dqn",
+        description="Select world: 'turtlebot3_dqn' or 'turtlebot3_house' or 'warehouse' (map file share the same name as the this parameter)",
     )
 
     rviz_cmd = IncludeLaunchDescription(
@@ -144,15 +149,14 @@ def generate_launch_description():
     ld.add_action(declare_namespace_cmd)
     ld.add_action(declare_use_namespace_cmd)
     ld.add_action(declare_slam_cmd)
+    ld.add_action(declare_world_cmd)
     ld.add_action(declare_map_yaml_cmd)
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_params_file_cmd)
     ld.add_action(declare_autostart_cmd)
     ld.add_action(declare_use_composition_cmd)
-
     ld.add_action(declare_rviz_config_file_cmd)
     ld.add_action(declare_use_rviz_cmd)
-    ld.add_action(declare_world_cmd)
     ld.add_action(declare_use_respawn_cmd)
 
     # Add the actions to launch all of the navigation nodes

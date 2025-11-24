@@ -131,6 +131,12 @@ ros2 launch scorpio_simulator bringup_sim_launch.py
 > [!NOTE]
 > **注意：需要点击 Gazebo 左下角橙红色的 `启动` 按钮**
 
+启动导航
+
+```sh
+ros2 launch scorpio_nav2_bringup scorpio_simulation_launch.py slam:=True
+```
+
 #### 2.4.1 Test Commands
 
 控制机器人移动
