@@ -16,7 +16,7 @@
 
     <link name="base_link">
       <inertial>
-        <pose>0.015 0 0.145 0 0 0</pose>
+        <pose>${0.015+0.1575} 0 0.145 0 0 0</pose>
         <xmacro_block name="inertia_box" m="5" x="0.467" y="0.203" z="0.19" />
       </inertial>
 
