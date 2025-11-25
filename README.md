@@ -12,53 +12,7 @@ scorpio 是非官方创建的 [NXROBO-scorpio](https://github.com/NXROBO/scorpio
 
 ### 2.1 Setup Environment
 
-#### 2.1.1 Install the ROS2 distribution
-
-  Ubuntu 22.04: [ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
-
-#### 2.1.2 Install drivers
-
-- Install the latest Intel® RealSense™ SDK 2.0 and ROS Wrapper
-
-  Register the server's public key:
-
-  ```sh
-  sudo mkdir -p /etc/apt/keyrings
-  curl -sSf https://librealsense.intel.com/Debian/librealsense.pgp | sudo tee /etc/apt/keyrings/librealsense.pgp > /dev/null
-  ```
-
-  Add the server to the list of repositories:
-
-  ```sh
-  echo "deb [signed-by=/etc/apt/keyrings/librealsense.pgp] https://librealsense.intel.com/Debian/apt-repo `lsb_release -cs` main" | \
-  sudo tee /etc/apt/sources.list.d/librealsense.list
-  sudo apt-get update
-  ```
-
-  Install the libraries:
-
-  ```sh
-  sudo apt-get install librealsense2-dkms librealsense2-utils
-  ```
-
-  Install ROS Wrapper for Intel® RealSense™ cameras
-
-  ```sh
-  sudo apt install ros-$ROS_DISTRO-realsense2-*
-  ```
-
-- Install YDLidar-SDK
-
-  ```sh
-  mkdir -p ~/Programs && cd ~/Programs
-  git clone https://github.com/YDLIDAR/YDLidar-SDK.git
-  cd YDLidar-SDK
-  mkdir build
-  cd build
-  cmake ..
-  make
-  sudo make install
-  ```
+Ubuntu 22.04: [ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
 
 ### 2.2 Create Workspace
 
@@ -82,39 +36,28 @@ git clone https://github.com/LihanChen2004/scorpio.git src/scorpio
 vcs import src/scorpio < src/scorpio/dependencies.repos
 ```
 
-## 2.2.2 安装 RGLGazeboPlugin（GPU Lidar 仿真插件）
+### 2.2.2 Install dependencies
 
-1. 下载插件压缩包：
+Run the automated setup script:
 
-    ```sh
-    wget https://github.com/RobotecAI/RGLGazeboPlugin/releases/download/v0.2.0-fortress/RGLGazeboPlugin_ubuntu22.zip
-    ```
+```sh
+./src/scorpio/scripts/setup_dependencies.sh
+```
 
-2. 解压并复制插件文件：
+This [script](scripts/setup_dependencies.sh) will install:
 
-    ```sh
-    unzip RGLGazeboPlugin_ubuntu22.zip -d RGLGazeboPlugin_ubuntu22
-    cd RGLGazeboPlugin_ubuntu22
-    sudo cp RGLServerPlugin/libRobotecGPULidar.so /usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/
-    sudo cp RGLServerPlugin/libRGLServerPluginInstance.so /usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/
-    sudo cp RGLServerPlugin/libRGLServerPluginManager.so /usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/
-    sudo cp RGLVisualize/libRGLVisualize.so /usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/
+- Intel RealSense SDK 2.0 + ROS2 Wrapper
+- YDLidar SDK + udev rules
+- RGLGazeboPlugin (GPU Lidar simulation)
 
-    cd ..
-    rm -rf RGLGazeboPlugin_ubuntu22.zip RGLGazeboPlugin_ubuntu22
-    ```
-
-3. 下载 LivoxMid360 激光雷达模式文件：
-
-    ```sh
-    wget https://raw.githubusercontent.com/RobotecAI/RGLGazeboPlugin/fortress/lidar_patterns/LivoxMid360.mat3x4f -O src/scorpio/scorpio_description/resource/models/mid360/lidar_patterns/LivoxMid360.mat3x4f
-    ```
-
-### 2.3 Build
+> [!IMPORTANT]
+> After the script completes, **log out and log back in** to apply dialout group permissions.
 
 ```sh
 rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y
 ```
+
+### 2.3 Build
 
 ```sh
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=release
