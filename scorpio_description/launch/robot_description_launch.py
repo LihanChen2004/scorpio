@@ -32,10 +32,8 @@ from xmacro.xmacro4sdf import XMLMacro4sdf
 
 
 def launch_setup(context: LaunchContext) -> list:
-    """
-    NOTE: Using OpaqueFunction in order to get the context in string format...
-    But it is too hacky and not recommended.
-    """
+    # Using OpaqueFunction in order to get the context in string format...
+    # But it is too hacky and not recommended.
 
     namespace = LaunchConfiguration("namespace")
     use_sim_time = LaunchConfiguration("use_sim_time")

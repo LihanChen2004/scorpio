@@ -14,6 +14,7 @@
   <exec_depend>gz_ros2_control</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_cmake_black</test_depend>
   <test_depend>ament_cmake_xmllint</test_depend>
   <test_depend>ament_cmake_copyright</test_depend>
   <test_depend>launch</test_depend>
