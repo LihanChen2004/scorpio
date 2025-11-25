@@ -40,17 +40,32 @@ CmdVelToAckermannNode::CmdVelToAckermannNode(const rclcpp::NodeOptions & options
 
 float CmdVelToAckermannNode::convertToSteeringAngle(float linear_vel, float angular_vel) const
 {
-  if (std::abs(angular_vel) < 1e-6 || std::abs(linear_vel) < 1e-6) {
+  // If linear velocity is near zero, cannot determine steering angle
+  if (std::abs(linear_vel) < 1e-6) {
+    return 0.0f;
+  }
+
+  // If angular velocity is near zero, going straight
+  if (std::abs(angular_vel) < 1e-6) {
     return 0.0f;
   }
 
   // Calculate turning radius: r = v / omega
+  // The sign of radius is preserved from angular_vel
   float radius = linear_vel / angular_vel;
 
-  // Calculate steering angle: tan(delta) = wheelbase / radius
+  // Calculate steering angle: delta = atan(wheelbase / radius)
   float steering_angle = std::atan(wheelbase_ / radius);
 
-  return steering_angle;
+  const float max_steering_angle = static_cast<float>(M_PI / 4.0);  // π/4 radians
+  if (steering_angle > max_steering_angle) {
+    steering_angle = max_steering_angle;
+  } else if (steering_angle < -max_steering_angle) {
+    steering_angle = -max_steering_angle;
+  }
+
+  // I don't know why but the steering angle needs to be scaled by 1.5 to match the real steering angle
+  return steering_angle * 1.5f;
 }
 
 void CmdVelToAckermannNode::cmdVelCallback(const geometry_msgs::msg::Twist::SharedPtr msg)
