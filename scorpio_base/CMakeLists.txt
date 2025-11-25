@@ -19,8 +19,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
-find_package(generate_parameter_library REQUIRED)
-
 ###########
 ## Build ##
 ###########
@@ -36,11 +34,6 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 
 target_link_libraries(${PROJECT_NAME}
   scorpio_base_parameters
-)
-
-rclcpp_components_register_nodes(${PROJECT_NAME}
-  "scorpio_base::ScorpioBaseNode"
-  "scorpio_base::CmdVelToAckermannNode"
 )
 
 rclcpp_components_register_node(${PROJECT_NAME}
@@ -68,11 +61,6 @@ endif()
 #############
 ## Install ##
 #############
-
-install(TARGETS scorpio_base_parameters
-  EXPORT ${PROJECT_NAME}Targets)
-
-ament_export_targets(${PROJECT_NAME}Targets HAS_LIBRARY_TARGET)
 
 ament_auto_package(
   USE_SCOPED_HEADER_INSTALL_DIR
