@@ -15,13 +15,8 @@
 #include "scorpio_base/scorpio_base_node.hpp"
 
 #include <sys/time.h>
-#include <tf2/LinearMath/Quaternion.h>
 
-#include <algorithm>
-#include <cmath>
-#include <cstring>
-#include <geometry_msgs/msg/transform_stamped.hpp>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#include "tf2/LinearMath/Quaternion.hpp"
 
 namespace scorpio_base
 {

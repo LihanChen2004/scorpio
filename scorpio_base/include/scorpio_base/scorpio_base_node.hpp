@@ -15,21 +15,18 @@
 #ifndef SCORPIO_BASE__SCORPIO_BASE_NODE_HPP_
 #define SCORPIO_BASE__SCORPIO_BASE_NODE_HPP_
 
-#include <tf2_ros/transform_broadcaster.h>
-
-#include <ackermann_msgs/msg/ackermann_drive_stamped.hpp>
 #include <atomic>
-#include <geometry_msgs/msg/twist.hpp>
 #include <memory>
 #include <mutex>
-#include <nav_msgs/msg/odometry.hpp>
-#include <rclcpp/rclcpp.hpp>
-#include <scorpio_base/scorpio_base_parameters.hpp>
-#include <sensor_msgs/msg/imu.hpp>
-#include <string>
 
+#include "ackermann_msgs/msg/ackermann_drive_stamped.hpp"
+#include "geometry_msgs/msg/twist.hpp"
+#include "nav_msgs/msg/odometry.hpp"
 #include "scorpio_base/cereal_port.hpp"
 #include "scorpio_base/kalman_filter.hpp"
+#include "scorpio_base/scorpio_base_parameters.hpp"
+#include "sensor_msgs/msg/imu.hpp"
+#include "tf2_ros/transform_broadcaster.hpp"
 
 namespace scorpio_base
 {

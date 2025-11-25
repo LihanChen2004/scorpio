@@ -14,8 +14,6 @@
 
 #include "scorpio_base/cmd_vel_to_ackermann.hpp"
 
-#include <cmath>
-
 namespace scorpio_base
 {
 
