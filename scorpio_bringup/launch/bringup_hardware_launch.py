@@ -123,6 +123,15 @@ def generate_launch_description():
         ],
     )
 
+    start_livox_ros_driver2_node = Node(
+        package="livox_ros_driver2",
+        executable="livox_ros_driver2_node",
+        name="livox_ros_driver2",
+        output="screen",
+        namespace=namespace,
+        parameters=[configured_params],
+    )
+
     ld = LaunchDescription()
 
     # Declare the launch options
@@ -138,5 +147,6 @@ def generate_launch_description():
     ld.add_action(bringup_scorpio_base_cmd)
     ld.add_action(start_realsense_camera_node)
     ld.add_action(start_ydlidar_driver_node)
+    ld.add_action(start_livox_ros_driver2_node)
 
     return ld

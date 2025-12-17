@@ -8,3 +8,8 @@ repositories:
     type: git
     url: https://github.com/YDLIDAR/ydlidar_ros2_driver.git
     version: humble
+
+  third-party/livox_ros_driver2:
+    type: git
+    url: https://github.com/SMBU-PolarBear-Robotics-Team/livox_ros_driver2.git
+    version: main
