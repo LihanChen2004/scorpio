@@ -70,7 +70,9 @@ def generate_launch_description():
 
     declare_params_file_cmd = DeclareLaunchArgument(
         "params_file",
-        default_value=os.path.join(bringup_dir, "params", "scorpio_reality.yaml"),
+        default_value=os.path.join(
+            bringup_dir, "params", "reality", "scorpio_reality.yaml"
+        ),
         description="Full path to the ROS2 parameters file to use for all launched nodes",
     )
 

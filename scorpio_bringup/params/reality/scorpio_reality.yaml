@@ -48,7 +48,7 @@ livox_ros_driver2:
     publish_freq: 10.0                                  # frequency of publish, 5.0, 10.0, 20.0, 50.0, etc.
     output_data_type: 0
     frame_id: mid360
-    user_config_path: $(find-pkg-share scorpio_bringup)/params/mid360_user_config.json
+    user_config_path: $(find-pkg-share scorpio_bringup)/params/reality/mid360_user_config.json
     cmdline_input_bd_code: livox0000000001
     lvx_file_path: ""
 
