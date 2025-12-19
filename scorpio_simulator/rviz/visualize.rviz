@@ -5,9 +5,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /d435i_color1/Visibility1
       Splitter Ratio: 0.4246724843978882
-    Tree Height: 276
+    Tree Height: 1736
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -25,7 +24,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ydlidar
 Visualization Manager:
   Class: ""
   Displays:
@@ -153,6 +152,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        mid360:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         rear_left_wheel:
           Alpha: 1
           Show Axes: false
@@ -223,6 +227,10 @@ Visualization Manager:
           Value: true
         front_right_wheel:
           Value: true
+        mid360:
+          Value: true
+        odom:
+          Value: true
         rear_left_wheel:
           Value: true
         rear_right_wheel:
@@ -235,217 +243,118 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        base_footprint:
-          base_link:
-            front_bottom_screw_frame:
-              front_d435i:
-                front_color_frame:
-                  front_color_optical_frame:
-                    {}
-                front_depth_frame:
-                  front_depth_optical_frame:
-                    {}
-                front_imu_frame:
-                  front_accel_frame:
-                    front_accel_optical_frame:
+        odom:
+          base_footprint:
+            base_link:
+              front_bottom_screw_frame:
+                front_d435i:
+                  front_color_frame:
+                    front_color_optical_frame:
                       {}
-                  front_gyro_frame:
-                    front_gyro_optical_frame:
+                  front_depth_frame:
+                    front_depth_optical_frame:
                       {}
-                front_infra1_frame:
-                  front_infra1_optical_frame:
-                    {}
-                front_infra2_frame:
-                  front_infra2_optical_frame:
-                    {}
-            front_left_steering_link:
-              front_left_wheel:
+                  front_imu_frame:
+                    front_accel_frame:
+                      front_accel_optical_frame:
+                        {}
+                    front_gyro_frame:
+                      front_gyro_optical_frame:
+                        {}
+                  front_infra1_frame:
+                    front_infra1_optical_frame:
+                      {}
+                  front_infra2_frame:
+                    front_infra2_optical_frame:
+                      {}
+              front_left_steering_link:
+                front_left_wheel:
+                  {}
+              front_right_steering_link:
+                front_right_wheel:
+                  {}
+              mid360:
                 {}
-            front_right_steering_link:
-              front_right_wheel:
+              rear_left_wheel:
                 {}
-            rear_left_wheel:
-              {}
-            rear_right_wheel:
-              {}
-            ydlidar_g4:
-              {}
+              rear_right_wheel:
+                {}
+              ydlidar_g4:
+                {}
       Update Interval: 0
       Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz_default_plugins/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
+    - Class: rviz_common/Group
+      Displays:
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz_default_plugins/LaserScan
+          Color: 255; 255; 255
+          Color Transformer: Intensity
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 0
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: ydlidar
+          Position Transformer: XYZ
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Points
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /ydlidar/scan
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
+        - Alpha: 1
+          Autocompute Intensity Bounds: true
+          Autocompute Value Bounds:
+            Max Value: 10
+            Min Value: -10
+            Value: true
+          Axis: Z
+          Channel Name: intensity
+          Class: rviz_default_plugins/PointCloud2
+          Color: 255; 255; 255
+          Color Transformer: Intensity
+          Decay Time: 0
+          Enabled: true
+          Invert Rainbow: false
+          Max Color: 255; 255; 255
+          Max Intensity: 0
+          Min Color: 0; 0; 0
+          Min Intensity: 0
+          Name: mid360
+          Position Transformer: XYZ
+          Selectable: true
+          Size (Pixels): 3
+          Size (m): 0.009999999776482582
+          Style: Points
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /livox/lidar
+          Use Fixed Frame: true
+          Use rainbow: true
+          Value: true
       Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 0
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: livox_lidar
-      Position Transformer: XYZ
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Points
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /livox/lidar
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz_default_plugins/LaserScan
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 0
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: LaserScan
-      Position Transformer: XYZ
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Points
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /ydlidar/scan
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz_default_plugins/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: RGB8
-      Decay Time: 0
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 4096
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: d435i_point
-      Position Transformer: XYZ
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Flat Squares
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        Filter size: 10
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /front_d435i/depth/depth_image/points
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: true
-    - Class: rviz_default_plugins/Camera
-      Enabled: true
-      Far Plane Distance: 100
-      Image Rendering: background and overlay
-      Name: d435i_color
-      Overlay Alpha: 0.5
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /front_d435i/color/image
-      Value: true
-      Visibility:
-        Grid: false
-        LaserScan: true
-        RobotModel: false
-        TF: false
-        Value: true
-        d435i_infra1: true
-        d435i_infra2: true
-        d435i_point: true
-        livox_lidar: true
-      Zoom Factor: 1
-    - Class: rviz_default_plugins/Camera
-      Enabled: true
-      Far Plane Distance: 100
-      Image Rendering: background and overlay
-      Name: d435i_infra1
-      Overlay Alpha: 0.5
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /front_d435i/infra1/image
-      Value: true
-      Visibility:
-        Grid: false
-        LaserScan: true
-        RobotModel: false
-        TF: false
-        Value: true
-        d435i_color: true
-        d435i_infra2: true
-        d435i_point: true
-        livox_lidar: true
-      Zoom Factor: 1
-    - Class: rviz_default_plugins/Camera
-      Enabled: true
-      Far Plane Distance: 100
-      Image Rendering: background and overlay
-      Name: d435i_infra2
-      Overlay Alpha: 0.5
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /front_d435i/infra2/image
-      Value: true
-      Visibility:
-        Grid: false
-        LaserScan: true
-        RobotModel: false
-        TF: false
-        Value: true
-        d435i_color: true
-        d435i_infra1: true
-        d435i_point: true
-        livox_lidar: true
-      Zoom Factor: 1
+      Name: Sensors
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -492,7 +401,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.30183744430542
+      Distance: 1.518784761428833
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -518,7 +427,7 @@ Window Geometry:
   Height: 2002
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000036000000736fc020000000cfb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730200000bcb000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000006e000001820000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001600640034003300350069005f0063006f006c006f007201000001fc000002030000004a00fffffffb0000000c00430061006d00650072006101000004b3000002af0000000000000000fb0000001800640034003300350069005f0069006e0066007200610031010000040b000001c30000004a00fffffffb0000001800640034003300350069005f0069006e006600720061003201000005da000001ca0000004a00ffffff000000010000010f000002b0fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d000002b00000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004380000003efc0100000002fb0000000800540069006d00650000000000000004380000058100fffffffb0000000800540069006d00650100000000000004500000000000000000000004ee0000073600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000036000000736fc020000000cfb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730200000bcb000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000006e000007360000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001600640034003300350069005f0063006f006c006f007200000001fc000002030000000000000000fb0000000c00430061006d00650072006101000004b3000002af0000000000000000fb0000001800640034003300350069005f0069006e006600720061003100000002990000027b0000000000000000fb0000001800640034003300350069005f0069006e006600720061003200000003c1000003e30000000000000000000000010000010f000002b0fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d000002b00000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004380000003efc0100000002fb0000000800540069006d00650000000000000004380000058100fffffffb0000000800540069006d00650100000000000004500000000000000000000004ee0000073600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -530,9 +439,3 @@ Window Geometry:
   Width: 2138
   X: 986
   Y: 54
-  d435i_color:
-    collapsed: false
-  d435i_infra1:
-    collapsed: false
-  d435i_infra2:
-    collapsed: false

@@ -36,8 +36,8 @@
               <max>40</max>
           </range>
           <update_rate>${update_rate}</update_rate>
-          <topic>rgl_lidar</topic>
-          <frame>RGLLidar</frame>
+          <topic>/world/default/model/scorpio/link/mid360/sensor/mid360_lidar/scan/points</topic>
+          <frame>mid360</frame>
           <pattern_preset>Livox Mid360</pattern_preset>
         </plugin>
       </sensor>

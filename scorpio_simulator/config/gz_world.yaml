@@ -1,4 +1,4 @@
-world: "turtlebot3_dqn"
+world: "warehouse"
 
 robots:
   turtlebot3_dqn:
