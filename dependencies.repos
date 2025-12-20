@@ -9,7 +9,12 @@ repositories:
     url: https://github.com/YDLIDAR/ydlidar_ros2_driver.git
     version: humble
 
-  third-party/livox_ros_driver2:
+  third-party/mid360_driver:
     type: git
-    url: https://github.com/SMBU-PolarBear-Robotics-Team/livox_ros_driver2.git
+    url: https://github.com/Yancey2023/mid360_driver.git
     version: main
+
+  third-party/rgl_gazebo_plugin:
+    type: git
+    url: https://github.com/LihanChen2004/rgl_gazebo_plugin.git
+    version: dev/fortress/add_timestamp_field

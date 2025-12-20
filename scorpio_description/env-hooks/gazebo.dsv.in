@@ -1,3 +1,2 @@
 prepend-non-duplicate;IGN_GAZEBO_RESOURCE_PATH;share/@PROJECT_NAME@/resource/models
 prepend-non-duplicate;SDF_PATH;share/@PROJECT_NAME@/resource/models
-prepend-non-duplicate;RGL_PATTERNS_DIR;share/@PROJECT_NAME@/resource/models/mid360/lidar_patterns

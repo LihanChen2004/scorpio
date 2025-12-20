@@ -123,15 +123,6 @@ echo "  -> 清理临时文件..."
 cd /tmp
 sudo rm -rf "$TEMP_DIR"
 
-echo "  -> 下载 Livox Mid360 激光雷达模式文件..."
-LIDAR_PATTERN_DIR="$REPO_ROOT/scorpio_description/resource/models/mid360/lidar_patterns"
-mkdir -p "$LIDAR_PATTERN_DIR"
-wget https://raw.githubusercontent.com/RobotecAI/RGLGazeboPlugin/fortress/lidar_patterns/LivoxMid360.mat3x4f \
-     -O "$LIDAR_PATTERN_DIR/LivoxMid360.mat3x4f"
-
-echo -e "\e[32m✓ RGLGazeboPlugin 安装完成\e[0m"
-echo ""
-
 # ============================================================
 # 完成
 # ============================================================
